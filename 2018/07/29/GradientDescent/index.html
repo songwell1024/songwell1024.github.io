@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="机器学习，梯度下降，python3，jupyter notebook," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="记路心晴" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="梯度下降法概念梯度下降法是迭代法的一种,其实它不是一种具体的机器学习算法，是一种基于搜索的最优化方法，可以用于求解最小二乘问题(线性和非线性都可以)。在求解机器学习算法的模型参数，即无约束优化问题时，梯度下降（Gradient Descent）是最常采用的方法之一，另一种常用的方法是最小二乘法。在求解损失函数的最小值时，可以通过梯度下降法来一步步的迭代求解，得到最小化的损失函数和模型参数值。相应的">
+<meta name="keywords" content="机器学习，梯度下降，python3，jupyter notebook">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习之梯度下降法(GradientDescent)">
+<meta property="og:url" content="https://songwell1024.github.io/2018/07/29/GradientDescent/index.html">
+<meta property="og:site_name" content="记路心晴">
+<meta property="og:description" content="梯度下降法概念梯度下降法是迭代法的一种,其实它不是一种具体的机器学习算法，是一种基于搜索的最优化方法，可以用于求解最小二乘问题(线性和非线性都可以)。在求解机器学习算法的模型参数，即无约束优化问题时，梯度下降（Gradient Descent）是最常采用的方法之一，另一种常用的方法是最小二乘法。在求解损失函数的最小值时，可以通过梯度下降法来一步步的迭代求解，得到最小化的损失函数和模型参数值。相应的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent1.png">
+<meta property="og:image" content="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent2.png">
+<meta property="og:image" content="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent3.png">
+<meta property="og:image" content="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent4.png">
+<meta property="og:image" content="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent5.png">
+<meta property="og:image" content="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent6.png">
+<meta property="og:image" content="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent7.png">
+<meta property="og:image" content="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent8.png">
+<meta property="og:updated_time" content="2018-08-16T12:14:29.747Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习之梯度下降法(GradientDescent)">
+<meta name="twitter:description" content="梯度下降法概念梯度下降法是迭代法的一种,其实它不是一种具体的机器学习算法，是一种基于搜索的最优化方法，可以用于求解最小二乘问题(线性和非线性都可以)。在求解机器学习算法的模型参数，即无约束优化问题时，梯度下降（Gradient Descent）是最常采用的方法之一，另一种常用的方法是最小二乘法。在求解损失函数的最小值时，可以通过梯度下降法来一步步的迭代求解，得到最小化的损失函数和模型参数值。相应的">
+<meta name="twitter:image" content="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://songwell1024.github.io/2018/07/29/GradientDescent/"/>
+
+
+
+
+
+  <title>机器学习之梯度下降法(GradientDescent) | 记路心晴</title>
+  
+
+
+
+
+
+
+
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband">
+		<a href="https://github.com/songwell1024" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red.png" alt="Fork me on GitHub"></a>
+		<a href="https://github.com/songwell1024" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub">
+				<svg width="80" height="80" viewBox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+					<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+					<path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+				</svg>
+		</a>
+	</div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+		<div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">记路心晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心晴路放</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://songwell1024.github.io/2018/07/29/GradientDescent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WilsonSong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headphoto.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记路心晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">机器学习之梯度下降法(GradientDescent)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-29T21:32:24+08:00">
+                2018-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/29/GradientDescent/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/29/GradientDescent/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文共计&#58;</span>
+                
+                <span title="本文共计">
+                  3,329
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读耗时 &asymp;</span>
+                
+                <span title="阅读耗时">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>梯度下降法是迭代法的一种,其实它不是一种具体的机器学习算法，是一种基于搜索的最优化方法，可以用于求解最小二乘问题(线性和非线性都可以)。在求解机器学习算法的模型参数，即无约束优化问题时，梯度下降（Gradient Descent）是最常采用的方法之一，另一种常用的方法是最小二乘法。在求解损失函数的最小值时，可以通过梯度下降法来一步步的迭代求解，得到最小化的损失函数和模型参数值。相应的还有一个梯度上升法，它的作用是最大化一个效用函数。</p>
+<a id="more"></a> 
+<p>​        用一个图来表示梯度下降法：<br><img src="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent1.png" alt=""></p>
+<p>怎么理解呢？梯度其实是在在多维空间中的概念，在二维的平面上其实就是导数，梯度表示的就是方向，通过求某一个点的梯度，我们就可以知道J(损失函数)增大的方向，然后乘-η就可以找到J(损失函数)减小的方向，不断地求J的导数，直到其变为0，这样就找到J的最小值点。这里的η称为学习率，η的取值影响获得最优解的速度，η取值太小的时候学习速度收敛太慢，η太大有可能直接跳过最小值点然后导致不收敛。</p>
+<p><img src="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent2.png" alt=""></p>
+<p>有可能在某一次取值的过程中找到的是局部最优解，而不是全局最优解。这个时候怎么解决呢？多次运行，随机化初始点，这样的话增加了找到全局最优解的概率。</p>
+<h2 id="模拟实现梯度下降法"><a href="#模拟实现梯度下降法" class="headerlink" title="模拟实现梯度下降法"></a>模拟实现梯度下降法</h2><p>jupyter notebook中实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#datasets</span></span><br><span class="line">x = np.linspace(<span class="number">-1</span>, <span class="number">6</span> ,<span class="number">141</span>)</span><br><span class="line">y = (x<span class="number">-2.5</span>)**<span class="number">2</span><span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 求导数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dJ</span><span class="params">(theta)</span>:</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">2</span>*(theta - <span class="number">2.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 损失函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">J</span><span class="params">(theta)</span>:</span></span><br><span class="line"><span class="keyword">return</span> (theta - <span class="number">2.5</span>)**<span class="number">2</span><span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 梯度下降法</span></span><br><span class="line">theta = <span class="number">0.0</span></span><br><span class="line">eta = <span class="number">0.1</span></span><br><span class="line"><span class="comment">#误差精度</span></span><br><span class="line">epsilon = <span class="number">1e-8</span></span><br><span class="line">theta_history = [theta]</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">gradient = dJ(theta)</span><br><span class="line">last_theta = theta</span><br><span class="line">theta = theta - eta * gradient</span><br><span class="line">theta_history.append(theta)</span><br><span class="line"><span class="keyword">if</span>(abs(J(theta) - J(last_theta)) &lt; epsilon):</span><br><span class="line"><span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.plot(np.array(theta_history), J(np.array(theta_history)), color=<span class="string">'R'</span>, marker = <span class="string">'o'</span>)</span><br><span class="line">plt.xlabel(<span class="string">"theta"</span>)</span><br><span class="line">plt.ylabel(<span class="string">"J"</span>)</span><br><span class="line">plt.show()</span><br><span class="line">print(<span class="string">"theta = "</span> + str(theta))</span><br><span class="line">print(<span class="string">"J(theta) = "</span> + str(J(theta)))</span><br></pre></td></tr></table></figure>
+<p>得到的结果如下：<br><img src="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent3.png" alt=""></p>
+<p>然后我们上面讨论过，η取值太小的时候学习速度收敛太慢，η太大有可能直接跳过最小值点然后导致不收敛。下面测试一下。先取η=0.01<br><img src="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent4.png" alt=""></p>
+<p>我们可以看出梯度下降的速度变慢了<br>        然后取η=1<br><img src="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent5.png" alt=""></p>
+<p>当η&gt;1的时候编译器就自动报错，但是这里只是针对这里定义的这个函数，并不是意味着η=1就是极限值，针对不同的函数有不同的取值。</p>
+<h2 id="多元线性回归中使用批量梯度下降"><a href="#多元线性回归中使用批量梯度下降" class="headerlink" title="多元线性回归中使用批量梯度下降"></a>多元线性回归中使用批量梯度下降</h2><p>线性回归中使用梯度下降法，其目标是使得<br>$$<br>\sum_{i=1}^{m}(y^i-\hat{y}^i)^2<br>$$<br>尽可能小，而且线性回归算法的损失函数是具有唯一解的。<br>        其中<br>$$<br>\hat{y}^{i} = \theta _{0} + \theta _{1}X_{1}^{i}+…++ \theta _{n}X_{n}^{i}<br>$$<br>带入因此线性回归中梯度下降的目标就成为了<br>$$<br>\sum_{i=1}^{m}(y^i - \theta _{0} + \theta _{1}X_{1}^{i}+…++ \theta _{n}X_{n}^{i})<br>$$<br>使得其尽可能小。<br>那梯度怎么去求呢？如下：<br><img src="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent6.png" alt=""></p>
+<h3 id="批量梯度下降法具体实现"><a href="#批量梯度下降法具体实现" class="headerlink" title="批量梯度下降法具体实现"></a>批量梯度下降法具体实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">np.random.seed(666)</span><br><span class="line">x = 2 * np.random.random(size = 100)</span><br><span class="line">y = x * 3.0 + 4.0 + np.random.normal(size = 100)</span><br><span class="line">X = x.reshape(-1, 1)</span><br><span class="line"></span><br><span class="line">#损失函数</span><br><span class="line">def J(theta, X_b, y):</span><br><span class="line">try:</span><br><span class="line">return np.sum((y - X_b.dot(theta))**2)/len(X_b)</span><br><span class="line">except:</span><br><span class="line">return float(&apos;inf&apos;)</span><br><span class="line"></span><br><span class="line">#损失函数的梯度</span><br><span class="line">def dJ(theta, X_b, y):</span><br><span class="line">res = np.empty(len(theta))</span><br><span class="line">res[0] = np.sum(X_b.dot(theta) - y)</span><br><span class="line">for i in range(1, len(theta)):</span><br><span class="line">res[i] = (X_b.dot(theta) - y).dot(X_b[:,i])</span><br><span class="line">return res *2 /len(X_b)</span><br><span class="line"></span><br><span class="line">#梯度下降法</span><br><span class="line">def gradient_descent(X_b, y, initial_thata, eta, n_iters = 1e4, epsilon = 1e-8):</span><br><span class="line">theta = initial_theta</span><br><span class="line">i_iter = 0</span><br><span class="line"></span><br><span class="line">while i_iter &lt; n_iters:# n_iters是最大循环次数</span><br><span class="line">gradient = dJ(theta, X_b, y)</span><br><span class="line">last_theta = theta</span><br><span class="line">theta = theta - eta * gradient</span><br><span class="line"></span><br><span class="line">if(abs(J(theta, X_b, y) - J(last_theta, X_b, y)) &lt; epsilon):</span><br><span class="line">break</span><br><span class="line"></span><br><span class="line">i_iter += 1</span><br><span class="line"></span><br><span class="line">return theta</span><br><span class="line"></span><br><span class="line">X_b = np.hstack([np.ones((len(x), 1)), x.reshape(-1, 1)])</span><br><span class="line">initial_theta = np.zeros(X_b.shape[1])</span><br><span class="line">eta = 0.01</span><br><span class="line"></span><br><span class="line">theta = gradient_descent(X_b, y, initial_theta, eta)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(x, y)</span><br><span class="line">Y = X_b.dot(theta)</span><br><span class="line">plt.plot(x, Y, color=<span class="string">"red"</span>)</span><br><span class="line">plt.show()</span><br><span class="line">print(<span class="string">"theta = "</span> + str(theta))</span><br></pre></td></tr></table></figure>
+<p>得到的结果</p>
+<p><img src="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent7.png" alt=""></p>
+<p>在初始化数据的时候，斜率设为3，截距为4，然后我们训练出的结果theta与两值接近，证明训练的模型是准确的：<br>y = x * 3.0 + 4.0 + np.random.normal(size = 100)</p>
+<h2 id="随机梯度下降法"><a href="#随机梯度下降法" class="headerlink" title="随机梯度下降法"></a>随机梯度下降法</h2><p>上面我们用的是批量梯度下降法，这种方法有一个缺点，就是每一项都需要对所有的样本点进行计算，数据量少的时候还可以，但是数据量很大的时候就显得很鸡肋了，计算非常的耗资源。能不能每一次计算的时候只对其中的一个样本进行计算呢？这就衍生出了随机梯度下降法。</p>
+<p><img src="https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/Gradient%20Descent%2FGradientDescent8.png" alt=""></p>
+<p>即每读取一条样本，就迭代对Θ进行更新，然后判断其是否收敛，若没收敛，则继续读取样本进行处理，如果所有样本都读取完毕了，则循环重新从头开始读取样本进行处理。但是，相较于批量梯度下降算法而言，随机梯度下降算法使得J(Θ)趋近于最小值的速度更快，但是有可能造成永远不可能收敛于最小值，有可能一直会在最小值周围震荡，但是实践中，大部分值都能够接近于最小值，所以当数据量很大的时候可以用精度来换取时间。</p>
+<p>在随机梯度下降法中为了得到更高的收敛结果，学习率是要随着循环次数的增加而逐渐的减小。这是因为在学习的过程中要是学习率是一个固定值，但是可能由于随机的过程不够好，eta有是一个固定值，那么在学习的过程中随机梯度下降法接近最优解的时候又会慢慢的跳出最优解的范围。气质学习率随着循环次数的增加而逐渐的减小这种思想是模拟退火的思想，去搜了下模拟退火，下面写下自己的理解。</p>
+<h3 id="模拟退火算法"><a href="#模拟退火算法" class="headerlink" title="模拟退火算法"></a>模拟退火算法</h3><p>拟退火其实也是一种贪心算法，但是它的搜索过程引入了随机因素。模拟退火算法以一定的概率来接受一个比当前解要差的解，因此有可能会跳出这个局部的最优解，达到全局的最优解。<br>模拟退火算法描述：</p>
+<p>想象一个高温物体的降温过程。其温度为T时出现能量差为dE的降温概率为<br>P(dE) =  e ^ ( -dE / (k * T) ) 。<br>其实就是温度越高降温的概率越大，温度越低降温概率越小。而模拟退火就是利用这样一种思想去进行搜索。<br>那么在进行搜索的时候首先定义一个初始值( 温度 ) T , 一个系数 r ( 降温速度  0 \&lt; r \&lt; 1 ) , 假设你当前状态为 f i , 你的下一个状态为 f i +1 , 对这两个状态进行评价，如果更接近你想要的结果，就更新到这个状态，否则则以 P ( dE ) 的概率去更新到 这个状态，但是其实在实际题目中，这个概率是不必要的，这一步有时是可以忽略掉的。我们可以想象，随着搜索次数的不断增多，搜索范围将越来越趋近于稳定，也就是随着时间的增长温度降低的概率越来越低，直到趋近于1。对应搜索就是随着你搜索的次数越多，你搜索到的值是你想要的值的概率就越大。</p>
+<p>然后结合模拟退火的思想，在随机梯度下降法中设置学习率为:</p>
+<p>然后结合模拟退火的思想，在随机梯度下降法中设置学习率为:<br>$$<br>\eta = \frac{a}{i_iters + b}<br>$$<br>其中i_iters是循环次数，a,b是两个经验参数，根据实际情况设置。</p>
+<p>看完了梯度下降法，其优缺点如下：</p>
+<p>第一种，遍历全部数据集算一次损失函数，然后算函数对各个参数的梯度，更新梯度。这种方法每更新一次参数都要把数据集里的所有样本都看一遍，计算量开销大，计算速度慢，不支持在线学习，其实这就是批量梯度下降。</p>
+<p>其中i_iters是循环次数，a,b是两个经验参数，根据实际情况设置。</p>
+<p>看完了梯度下降法，其优缺点如下：</p>
+<p>第一种，遍历全部数据集算一次损失函数，然后算函数对各个参数的梯度，更新梯度。这种方法每更新一次参数都要把数据集里的所有样本都看一遍，计算量开销大，计算速度慢，不支持在线学习，其实这就是批量梯度下降。</p>
+<p>其中i_iters是循环次数，a,b是两个经验参数，根据实际情况设置。<br>看完了梯度下降法，其优缺点如下：<br>第一种，遍历全部数据集算一次损失函数，然后算函数对各个参数的梯度，更新梯度。这种方法每更新一次参数都要把数据集里的所有样本都看一遍，计算量开销大，计算速度慢，不支持在线学习，其实这就是批量梯度下降。</p>
+<p>另一种，每看一个数据就算一下损失函数，然后求梯度更新参数，这个其实也就是随机梯度下降，这个方法速度比较快，但是收敛性能不太好，可能在最优点附近晃来晃去，找不到不到最优点。两次参数的更新也有可能互相抵消掉，造成目标函数震荡的比较剧烈。</p>
+<p>为了克服两种方法的缺点，现在一般采用的是一种折中手段，小批的梯度下降，这种方法把数据分为若干个批，按批来更新参数，这样，一个批中的一组数据共同决定了本次梯度的方向，下降起来就不容易跑偏，减少了随机性。另一方面因为批的样本数与整个数据集相比小了很多，计算量也不是很大。</p>
+<p>另一种，每看一个数据就算一下损失函数，然后求梯度更新参数，这个其实也就是随机梯度下降，这个方法速度比较快，但是收敛性能不太好，可能在最优点附近晃来晃去，找不到不到最优点。两次参数的更新也有可能互相抵消掉，造成目标函数震荡的比较剧烈。为了克服两种方法的缺点，现在一般采用的是一种折中手段，小批的梯度下降，这种方法把数据分为若干个批，按批来更新参数，这样，一个批中的一组数据共同决定了本次梯度的方向，下降起来就不容易跑偏，减少了随机性。另一方面因为批的样本数与整个数据集相比小了很多，计算量也不是很大。</p>
+<p>为了克服两种方法的缺点，现在一般采用的是一种折中手段，小批的梯度下降，这种方法把数据分为若干个批，按批来更新参数，这样，一个批中的一组数据共同决定了本次梯度的方向，下降起来就不容易跑偏，减少了随机性。另一方面因为批的样本数与整个数据集相比小了很多，计算量也不是很大。</p>
+<h3 id="随机梯度下降法实现"><a href="#随机梯度下降法实现" class="headerlink" title="随机梯度下降法实现"></a>随机梯度下降法实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">m = 100000</span><br><span class="line">x = np.random.normal(size = m)</span><br><span class="line">X = x.reshape(-1, 1)</span><br><span class="line">y = 4.0 * x + 3.0 + np.random.normal(0 ,3, size = m)</span><br><span class="line"></span><br><span class="line">def J(theta, X_b, y):</span><br><span class="line">try:</span><br><span class="line">return np.sum((y - X_b.dot(theta))**2) / len(y)</span><br><span class="line">except:</span><br><span class="line">return float(&apos;inf&apos;)</span><br><span class="line"></span><br><span class="line">def dJ_sgd(theta, X_b_i, y_i):</span><br><span class="line">return X_b_i.T.dot(X_b_i.dot(theta) - y_i) * 2.0 </span><br><span class="line"></span><br><span class="line">def sgd(X_b, y, initial_theta, n_iters):</span><br><span class="line">t0 = 5</span><br><span class="line">t1 = 50</span><br><span class="line"></span><br><span class="line">def learning_rate(t):</span><br><span class="line">return t0 / (t + t1)</span><br><span class="line"></span><br><span class="line">theta = initial_theta</span><br><span class="line">for cur_iter in range(n_iters):</span><br><span class="line">rand_i = np.random.randint(len(X_b))</span><br><span class="line">gradient = dJ_sgd(theta, X_b[rand_i], y[rand_i])</span><br><span class="line">theta = theta - learning_rate(cur_iter) * gradient</span><br><span class="line"></span><br><span class="line">return theta</span><br><span class="line">X_b = np.hstack([np.ones((len(X), 1)), X])</span><br><span class="line">initial_theta = np.zeros(X_b.shape[1])</span><br><span class="line">theta = sgd(X_b, y, initial_theta, n_iters = len(X_b)//3)</span><br><span class="line">print(&quot;theta = &quot; + str(theta))</span><br></pre></td></tr></table></figure>
+<p>输出的theta = [3.00887864 4.05589554]，与设置的数据相接近。</p>
+
+      
+    </div>
+    
+    
+    
+	<div>
+		  
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2018/07/29/GradientDescent/">机器学习之梯度下降法(GradientDescent)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 WilsonSong 的个人博客">WilsonSong</a></p>
+  <p><span>发布时间:</span>2018年07月29日 - 21:07</p>
+  <p><span>最后更新:</span>2018年08月16日 - 20:08</p>
+  <p><span>原始链接:</span><a href="/2018/07/29/GradientDescent/" title="机器学习之梯度下降法(GradientDescent)">https://songwell1024.github.io/2018/07/29/GradientDescent/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://songwell1024.github.io/2018/07/29/GradientDescent/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+		  
+	</div>
+	
+    
+
+	  <div>
+	    
+	    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	    
+	  </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习，梯度下降，python3，jupyter-notebook/" rel="tag"><i class="fa fa-tag"></i> 机器学习，梯度下降，python3，jupyter notebook</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/21/first-blog/" rel="next" title="哈哈哈，终于把博客搭建起来啦">
+                <i class="fa fa-chevron-left"></i> 哈哈哈，终于把博客搭建起来啦
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/30/LinearRegression/" rel="prev" title="机器学习之线性回归（Linear Regression）">
+                机器学习之线性回归（Linear Regression） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+		<!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分 享</div>
+<div class="-mob-share-ui"  -mob-share-ui-theme -mob-share-ui-theme-slide-bottom style="display: none">
+<ul class="-mob-share-list">
+  <li class="-mob-share-weixin"><p>微信</p></li>
+  <li class="-mob-share-qzone"><p>QQ空间</p></li>
+  <li class="-mob-share-weibo"><p>新浪微博</p></li>
+  <li class="-mob-share-facebook"><p>Facebook</p></li>
+  <li class="-mob-share-twitter"><p>Twitter</p></li>
+  <li class="-mob-share-pocket"><p>Pocket</p></li>
+  <li class="-mob-share-tumblr"><p>Tumblr</p></li>
+  <li class="-mob-share-google"><p>Google+</p></li>
+  <li class="-mob-share-linkedin"><p>Linkedin</p></li>
+  <li class="-mob-share-qq"><p>QQ好友</p></li>
+  <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+  <li class="-mob-share-renren"><p>人人网</p></li>
+  <li class="-mob-share-douban"><p>豆瓣</p></li>
+  <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+  <li class="-mob-share-instapaper"><p>Instapaper</p></li>
+</ul>
+<div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=27757904d54d4"></script>
+<!--MOB SHARE END-->
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headphoto.jpg"
+                alt="WilsonSong" />
+            
+              <p class="site-author-name" itemprop="name">WilsonSong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/songwell1024" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zySong0709@foxmail" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.csdn.net/WilsonSong1024" title="CSDN博客" target="_blank">CSDN博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          <div id="aplayer" class="aplayer"></div>
+<script src="/js/src/APlayer.min.js"></script>
+<script type="text/javascript">
+var ap = new APlayer({
+    element: document.getElementById('aplayer'),                       // Optional, player element
+    narrow: false,                                                     // Optional, narrow style
+    autoplay: false,                                                    // Optional, autoplay song(s), not supported by mobile browsers
+    showlrc: 0,                                                        // Optional, show lrc, can be 0, 1, 2, see: ###With lrc
+    mutex: true,                                                       // Optional, pause other players when this player playing
+    theme: '#e6d0b2',                                                  // Optional, theme color, default: #b7daff
+    mode: 'random',                                                    // Optional, play mode, can be `random` `single` `circulation`(loop) `order`(no loop), default: `circulation`
+    preload: 'metadata',                                               // Optional, the way to load music, can be 'none' 'metadata' 'auto', default: 'auto'
+    listmaxheight: '513px',                                             // Optional, max height of play list
+    music: [{
+      title: '那些你很冒险的梦',
+      author: '林俊杰',
+      url: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2Fdream.mp3',
+      pic: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2F1.webp',
+    },
+	{
+	  title: '修炼爱情',
+      author: '林俊杰',
+      url: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2F%E4%BF%AE%E7%82%BC%E7%88%B1%E6%83%85.mp3',
+      pic: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2Ftimg.webp',	
+	}
+	]
+  });
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#梯度下降法"><span class="nav-number">1.</span> <span class="nav-text">梯度下降法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟实现梯度下降法"><span class="nav-number">1.2.</span> <span class="nav-text">模拟实现梯度下降法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多元线性回归中使用批量梯度下降"><span class="nav-number">1.3.</span> <span class="nav-text">多元线性回归中使用批量梯度下降</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#批量梯度下降法具体实现"><span class="nav-number">1.3.1.</span> <span class="nav-text">批量梯度下降法具体实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机梯度下降法"><span class="nav-number">1.4.</span> <span class="nav-text">随机梯度下降法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟退火算法"><span class="nav-number">1.4.1.</span> <span class="nav-text">模拟退火算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机梯度下降法实现"><span class="nav-number">1.4.2.</span> <span class="nav-text">随机梯度下降法实现</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WilsonSong</span>
+
+  
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共44.6k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'vmma2AyaJ0StcuxLmOdmPBMu-gzGzoHsz',
+        appKey: 'VfsPFNQTt5IgX8yrvzFmn3S9',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'/images/headphoto.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":75,"height":150,"horizontalOffset":12,"verticalOffset":-40},"mobile":{"show":true},"log":false});</script></body>
+</html>

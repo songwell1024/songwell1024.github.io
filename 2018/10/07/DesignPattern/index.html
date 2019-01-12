@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="设计模式," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="记路心晴" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="设计模式（参考《Head First 设计模式》）设计模式（Design Pattern）是一套被反复使用、多数人知晓的、经过分类的、代码设计经验的总结。    使用设计模式的目的：为了代码可重用性、让代码更容易被他人理解、保证代码可靠性。 设计模式使代码编写真正工程化；设计模式是软件工程的基石脉络，如同大厦的结构一样。">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式">
+<meta property="og:url" content="https://songwell1024.github.io/2018/10/07/DesignPattern/index.html">
+<meta property="og:site_name" content="记路心晴">
+<meta property="og:description" content="设计模式（参考《Head First 设计模式》）设计模式（Design Pattern）是一套被反复使用、多数人知晓的、经过分类的、代码设计经验的总结。    使用设计模式的目的：为了代码可重用性、让代码更容易被他人理解、保证代码可靠性。 设计模式使代码编写真正工程化；设计模式是软件工程的基石脉络，如同大厦的结构一样。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-18T07:14:03.738Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式">
+<meta name="twitter:description" content="设计模式（参考《Head First 设计模式》）设计模式（Design Pattern）是一套被反复使用、多数人知晓的、经过分类的、代码设计经验的总结。    使用设计模式的目的：为了代码可重用性、让代码更容易被他人理解、保证代码可靠性。 设计模式使代码编写真正工程化；设计模式是软件工程的基石脉络，如同大厦的结构一样。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://songwell1024.github.io/2018/10/07/DesignPattern/"/>
+
+
+
+
+
+  <title>设计模式 | 记路心晴</title>
+  
+
+
+
+
+
+
+
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband">
+		<a href="https://github.com/songwell1024" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red.png" alt="Fork me on GitHub"></a>
+		<a href="https://github.com/songwell1024" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub">
+				<svg width="80" height="80" viewBox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+					<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+					<path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+				</svg>
+		</a>
+	</div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+		<div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">记路心晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心晴路放</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://songwell1024.github.io/2018/10/07/DesignPattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WilsonSong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headphoto.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记路心晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">设计模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-07T15:42:50+08:00">
+                2018-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/07/DesignPattern/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/07/DesignPattern/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文共计&#58;</span>
+                
+                <span title="本文共计">
+                  2,809
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读耗时 &asymp;</span>
+                
+                <span title="阅读耗时">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="设计模式（参考《Head-First-设计模式》）"><a href="#设计模式（参考《Head-First-设计模式》）" class="headerlink" title="设计模式（参考《Head First 设计模式》）"></a>设计模式（参考《Head First 设计模式》）</h1><p>设计模式（Design Pattern）是一套被反复使用、多数人知晓的、经过分类的、代码设计经验的总结。<br>    使用设计模式的目的：为了代码可重用性、让代码更容易被他人理解、保证代码可靠性。 设计模式使代码编写真正工程化；设计模式是软件工程的基石脉络，如同大厦的结构一样。</p>
+<a id="more"></a>
+<h2 id="1-设计模式的分类"><a href="#1-设计模式的分类" class="headerlink" title="1.  设计模式的分类"></a>1.  设计模式的分类</h2><p>总体来说设计模式分为三大类：</p>
+<p>创建型模式：对象实例化的模式，创建型模式解耦了对象的实例化过程。一共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。</p>
+<p>结构型模式：把类或对象结合在一起形成更大的结构，一共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。</p>
+<p>行为型模式：类和对象如何交互，及划分责任和算法，一共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。</p>
+<p>其实还有两类：并发型模式和线程池模式。</p>
+<h2 id="2-设计模式的六大原则"><a href="#2-设计模式的六大原则" class="headerlink" title="2.  设计模式的六大原则"></a>2.  设计模式的六大原则</h2><h3 id="总原则：开闭原则（Open-Close-Principle）"><a href="#总原则：开闭原则（Open-Close-Principle）" class="headerlink" title="总原则：开闭原则（Open Close Principle）"></a>总原则：开闭原则（Open Close Principle）</h3><p>开闭原则就是说<strong>对扩展开放，对修改关闭</strong>。在程序需要进行拓展的时候，不能去修改原有的代码，而是要扩展原有代码，实现一个热插拔的效果。所以一句话概括就是：为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，我们需要使用接口和抽象类等。</p>
+<p> 实际上，绝对封闭的系统是不存在的。无论模块是怎么封闭，到最后，总还是有一些无法封闭的变化。而我们的思路就是：既然不能做到完全封闭，那我们就应该对那些变化封闭，那些变化隔离做出选择。我们做出选择，然后将那些无法封闭的变化抽象出来，进行隔离，允许扩展，尽可能的减少系统的开发。当系统变化来临时，我们要及时的做出反应。</p>
+<p> 我们并不害怕改变的到来。当变化到来时，我们首先需要做的不是修改代码，而是尽可能的将变化抽象出来进行隔离，然后进行扩展。面对需求的变化，对程序的修改应该是尽可能通过添加代码来实现，而不是通过修改代码来实现。</p>
+<p>实际上，变化或者可能的变化来的越早，抽象就越容易，相对的，代码的维护也就越容易；而当项目接近于完成而来的需求变化，则会使抽象变得很困难——这个困难，并不是抽象本身的困难，抽象本身并没有困难，困难在于系统的架构已经完成，修改牵扯的方面太多而使得抽象工作变得很困难。</p>
+<h3 id="2-1-单一职责原则"><a href="#2-1-单一职责原则" class="headerlink" title="2.1  单一职责原则"></a>2.1  单一职责原则</h3><p>不要存在多于一个导致类变更的原因，也就是说每个类应该实现单一的职责，如若不然，就应该把类拆分。 </p>
+<h3 id="2-2-里氏替换原则（Liskov-Substitution-Principle）"><a href="#2-2-里氏替换原则（Liskov-Substitution-Principle）" class="headerlink" title="2.2  里氏替换原则（Liskov Substitution Principle）"></a>2.2  里氏替换原则（Liskov Substitution Principle）</h3><p>里氏代换原则(Liskov Substitution Principle LSP)面向对象设计的基本原则之一，他是设计整个继承体系的原则。 里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。 LSP是继承复用的基石，只有当衍生类可以替换掉基类，软件单位的功能不受到影响时，基类才能真正被复用，而衍生类也能够在基类的基础上增加新的行为。里氏代换原则是对“开-闭”原则的补充。实现“开-闭”原则的关键步骤就是抽象化。而基类与子类的继承关系就是抽象化的具体实现，所以里氏代换原则是对实现抽象化的具体步骤的规范。—— From Baidu 百科</p>
+<p>里氏替换原则中，子类对父类的方法尽量不要重写和重载。因为父类代表了定义好的结构，通过这个规范的接口与外界交互，子类不应该随便破坏它。换句话说就是所有引用基类的地方必须能透明地使用其子类对象，使用子类替换基类的时候功能不会发生变化；子类在扩展父类功能时不能破坏父类原有的功能；</p>
+<p>使用继承时，遵循里氏替换原则：</p>
+<ul>
+<li>子类可以实现父类的抽象方法，但不能覆盖父类的非抽象方法。</li>
+<li>当子类重载父类方法时，方法的形参要比父类方法的参数更宽松</li>
+<li>当子类实现父类的抽象方法时，方法的返回值要比父类更严格</li>
+</ul>
+<h3 id="2-3-依赖倒置原则（Dependence-Inversion-Principle）"><a href="#2-3-依赖倒置原则（Dependence-Inversion-Principle）" class="headerlink" title="2.3  依赖倒置原则（Dependence Inversion Principle）"></a>2.3  依赖倒置原则（Dependence Inversion Principle）</h3><p>这个是开闭原则的基础，具体内容：面向接口编程，依赖于抽象而不依赖于具体。写代码时用到具体类时，不与具体类交互，而与具体类的上层接口交互。要依赖于抽象，不要依赖于具体；高层模块不应该依赖低层模块，二者都应该依赖其抽象；抽象不应该依赖具体，具体应该依赖抽象；针对接口编程，不要针对实现编程。在java中，抽象指的是接口或者抽象类，具体就是具体的实现类。工厂方法模式，模板方法模式，迭代器模式都用到了依赖倒置原则。 </p>
+<h3 id="2-4-接口隔离原则（Interface-Segregation-Principle）"><a href="#2-4-接口隔离原则（Interface-Segregation-Principle）" class="headerlink" title="2.4  接口隔离原则（Interface Segregation Principle）"></a>2.4  接口隔离原则（Interface Segregation Principle）</h3><p>这个原则的意思是：每个接口中不存在子类用不到却必须实现的方法，如果不然，就要将接口拆分。使用多个隔离的接口，比使用单个接口（多个接口方法集合到一个的接口）要好。 </p>
+<h3 id="2-5-迪米特法则（最少知识原则）（Demeter-Principle）"><a href="#2-5-迪米特法则（最少知识原则）（Demeter-Principle）" class="headerlink" title="2.5  迪米特法则（最少知识原则）（Demeter Principle）"></a>2.5  迪米特法则（最少知识原则）（Demeter Principle）</h3><p>就是说：一个类对自己依赖的类知道的越少越好。也就是说无论被依赖的类多么复杂，都应该将逻辑封装在方法的内部，通过public方法提供给外部。这样当被依赖的类变化时，才能最小的影响该类。</p>
+<p>最少知识原则的另一个表达方式是：只与直接的朋友通信。类之间只要有耦合关系，就叫朋友关系。耦合分为依赖、关联、聚合、组合等。我们称出现为成员变量、方法参数、方法返回值中的类为直接朋友。局部变量、临时变量则不是直接的朋友。我们要求陌生的类不要作为局部变量出现在类中。成员变量、方法参数、方法返回值中需要的类为直接朋友。类与类之间的关系越密切了解越多，耦合度越大。</p>
+<p>外观模式和中介者模式都用到了最少知识原则。</p>
+<h3 id="2-6-合成复用原则（Composite-Reuse-Principle）"><a href="#2-6-合成复用原则（Composite-Reuse-Principle）" class="headerlink" title="2.6  合成复用原则（Composite Reuse Principle）"></a>2.6  合成复用原则（Composite Reuse Principle）</h3><p>原则是尽量首先使用合成/聚合的方式，而不是使用继承。就是找到变化部分，抽象，封装变化。</p>
+<h2 id="3-具体设计模式"><a href="#3-具体设计模式" class="headerlink" title="3.  具体设计模式"></a>3.  具体设计模式</h2><h3 id="3-1-工厂模式"><a href="#3-1-工厂模式" class="headerlink" title="3.1 工厂模式"></a>3.1 工厂模式</h3><p>简单工厂：一个工厂类根据传入的参量决定创建出哪一种产品类的实例</p>
+<p>工厂方法：定义一个创建对象的接口，让子类决定实例化哪一个类</p>
+<p>抽象工厂：创建相关或依赖对象的家族，而无需明确指定具体类</p>
+<p><a href="https://songwell1024.github.io/2018/10/07/factory/">工厂模式</a></p>
+<h3 id="3-2-单例模式"><a href="#3-2-单例模式" class="headerlink" title="3.2 单例模式"></a>3.2 单例模式</h3><p>单例模式：某个类只能有一个实例，提供一个全局访问点</p>
+<p><a href="https://songwell1024.github.io/2018/10/07/singleton/">单例模式</a></p>
+<h3 id="3-3生成器模式"><a href="#3-3生成器模式" class="headerlink" title="3.3生成器模式"></a>3.3生成器模式</h3><p>生成器模式：封装一个复杂对象的构建过程，并可以按步骤构造</p>
+<p><a href="https://songwell1024.github.io/2018/10/17/BuilderPattern/">生成器模式</a></p>
+<h3 id="3-4原型模式"><a href="#3-4原型模式" class="headerlink" title="3.4原型模式"></a>3.4原型模式</h3><p>原型模式：通过复制现有的实例来创建新的实例</p>
+<p><a href="https://songwell1024.github.io/2018/10/18/PrototypePattern/">原型模式</a></p>
+<h3 id="3-5适配器模式"><a href="#3-5适配器模式" class="headerlink" title="3.5适配器模式"></a>3.5适配器模式</h3><p>适配器模式：将一个类的方法接口转换成客户希望的另外一个接口</p>
+<p><a href="https://songwell1024.github.io/2018/10/17/AdapterMode/">适配器模式</a></p>
+<h3 id="3-6组合模式"><a href="#3-6组合模式" class="headerlink" title="3.6组合模式"></a>3.6组合模式</h3><p>组合模式：将对象组合成树形结构以表示“部分-整体”的层次结构</p>
+<p><a href="https://songwell1024.github.io/2018/10/17/CompositeMode/">组合模式</a></p>
+<h3 id="3-7装饰者模式"><a href="#3-7装饰者模式" class="headerlink" title="3.7装饰者模式"></a>3.7装饰者模式</h3><p>装饰者模式：动态地给对象添加新的功能</p>
+<p><a href="https://songwell1024.github.io/2018/10/07/decorator/">装饰者模式</a></p>
+<h3 id="3-8代理模式"><a href="#3-8代理模式" class="headerlink" title="3.8代理模式"></a>3.8代理模式</h3><p>代理模式：为其他对象提供一个代理以控制对这个对象的访问</p>
+<p><a href="https://songwell1024.github.io/2018/10/18/ProxyMode/">代理模式</a></p>
+<h3 id="3-9享元模式"><a href="#3-9享元模式" class="headerlink" title="3.9享元模式"></a>3.9享元模式</h3><p>享元模式：通过共享技术有效地支持大量细粒度的对象</p>
+<p><a href="https://songwell1024.github.io/2018/10/18/FlyweightPattern/">享元模式</a></p>
+<h3 id="3-10外观模式"><a href="#3-10外观模式" class="headerlink" title="3.10外观模式"></a>3.10外观模式</h3><p>外观模式：提供统一的方法来访问子系统的一群接口</p>
+<p><a href="https://songwell1024.github.io/2018/10/17/FacadeMode/">外观模式</a></p>
+<h3 id="3-11桥接模式"><a href="#3-11桥接模式" class="headerlink" title="3.11桥接模式"></a>3.11桥接模式</h3><p>桥接模式：将抽象部分与它的实现部分分离，使它们都可以独立地变化</p>
+<p><a href="https://songwell1024.github.io/2018/10/17/BridgeMode/">桥接模式</a></p>
+<h3 id="3-12模板模式"><a href="#3-12模板模式" class="headerlink" title="3.12模板模式"></a>3.12模板模式</h3><p>模板模式：定义一个算法结构，而将一些步骤延迟到子类中实现</p>
+<p><a href="https://songwell1024.github.io/2018/10/18/TemplateMethod/">模板模式</a></p>
+<h3 id="3-13解释器模式"><a href="#3-13解释器模式" class="headerlink" title="3.13解释器模式"></a>3.13解释器模式</h3><p>解释器模式：给定一个语言， 定义它的文法的一种表示，并定义一个解释器</p>
+<p><a href="https://songwell1024.github.io/2018/10/18/InterpreterPattern/">解释器模式</a></p>
+<h3 id="3-14策略模式"><a href="#3-14策略模式" class="headerlink" title="3.14策略模式"></a>3.14策略模式</h3><p>策略模式：定义一系列的算法，把它们封装起来， 并且使它们可相互替换</p>
+<p><a href="https://songwell1024.github.io/2018/10/07/strategy/">策略模式</a></p>
+<h3 id="3-15状态模式"><a href="#3-15状态模式" class="headerlink" title="3.15状态模式"></a>3.15状态模式</h3><p>状态模式：允许一个对象在其内部状态改变时改变它的行为</p>
+<p><a href="https://songwell1024.github.io/2018/10/18/StateMode/">状态模式</a></p>
+<h3 id="3-16-观察者模式"><a href="#3-16-观察者模式" class="headerlink" title="3.16 观察者模式"></a>3.16 观察者模式</h3><p>观察者模式：对象间的一对多的依赖关系</p>
+<p><a href="https://songwell1024.github.io/2018/10/07/observer/">观察者模式</a></p>
+<h3 id="3-17备忘录模式"><a href="#3-17备忘录模式" class="headerlink" title="3.17备忘录模式"></a>3.17备忘录模式</h3><p>备忘录模式：在不破坏封装性的前提下，保存对象的内部状态</p>
+<p><a href="https://songwell1024.github.io/2018/10/18/MementoPattern/">备忘录模式</a></p>
+<h3 id="3-18中介者模式"><a href="#3-18中介者模式" class="headerlink" title="3.18中介者模式"></a>3.18中介者模式</h3><p>中介者模式：用一个中介对象来封装一系列的对象交互</p>
+<p><a href="https://songwell1024.github.io/2018/10/18/MediatorPattern/">中介者模式</a></p>
+<h3 id="3-19命令模式"><a href="#3-19命令模式" class="headerlink" title="3.19命令模式"></a>3.19命令模式</h3><p>命令模式：将命令请求封装为一个对象，使得可用不同的请求来进行参数化</p>
+<p><a href="https://songwell1024.github.io/2018/10/17/CommandMode/">命令模式</a></p>
+<h3 id="3-20访问者模式"><a href="#3-20访问者模式" class="headerlink" title="3.20访问者模式"></a>3.20访问者模式</h3><p>访问者模式：在不改变数据结构的前提下，增加作用于一组对象元素新的功能</p>
+<p><a href="https://songwell1024.github.io/2018/10/18/VistorPattern/">访问者模式</a></p>
+<h3 id="3-21责任链模式"><a href="#3-21责任链模式" class="headerlink" title="3.21责任链模式"></a>3.21责任链模式</h3><p>责任链模式：请求发送者和接收者之间解耦，使的多个对象都有机会处理这个请求</p>
+<p><a href="https://songwell1024.github.io/2018/10/17/ChainmsPattern/">责任链模式</a></p>
+<h3 id="3-22迭代器模式"><a href="#3-22迭代器模式" class="headerlink" title="3.22迭代器模式"></a>3.22迭代器模式</h3><p>迭代器模式：一种遍历访问聚合对象中各个元素的方法，不暴露该对象的内部结构</p>
+<p><a href="https://songwell1024.github.io/2018/10/18/IteratorMode/">迭代器模式</a></p>
+<h3 id="3-23-复合模式"><a href="#3-23-复合模式" class="headerlink" title="3.23 复合模式"></a>3.23 复合模式</h3><p>复合模式：多个模式的组合</p>
+<p><a href="https://songwell1024.github.io/2018/10/17/compoundMode/">复合模式</a></p>
+
+      
+    </div>
+    
+    
+    
+	<div>
+		  
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2018/10/07/DesignPattern/">设计模式</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 WilsonSong 的个人博客">WilsonSong</a></p>
+  <p><span>发布时间:</span>2018年10月07日 - 15:10</p>
+  <p><span>最后更新:</span>2018年10月18日 - 15:10</p>
+  <p><span>原始链接:</span><a href="/2018/10/07/DesignPattern/" title="设计模式">https://songwell1024.github.io/2018/10/07/DesignPattern/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://songwell1024.github.io/2018/10/07/DesignPattern/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+		  
+	</div>
+	
+    
+
+	  <div>
+	    
+	    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	    
+	  </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/03/MMSySQL-Optimization/" rel="next" title="MySQL性能优化基础">
+                <i class="fa fa-chevron-left"></i> MySQL性能优化基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/07/strategy/" rel="prev" title="设计模式之策略模式">
+                设计模式之策略模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+		<!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分 享</div>
+<div class="-mob-share-ui"  -mob-share-ui-theme -mob-share-ui-theme-slide-bottom style="display: none">
+<ul class="-mob-share-list">
+  <li class="-mob-share-weixin"><p>微信</p></li>
+  <li class="-mob-share-qzone"><p>QQ空间</p></li>
+  <li class="-mob-share-weibo"><p>新浪微博</p></li>
+  <li class="-mob-share-facebook"><p>Facebook</p></li>
+  <li class="-mob-share-twitter"><p>Twitter</p></li>
+  <li class="-mob-share-pocket"><p>Pocket</p></li>
+  <li class="-mob-share-tumblr"><p>Tumblr</p></li>
+  <li class="-mob-share-google"><p>Google+</p></li>
+  <li class="-mob-share-linkedin"><p>Linkedin</p></li>
+  <li class="-mob-share-qq"><p>QQ好友</p></li>
+  <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+  <li class="-mob-share-renren"><p>人人网</p></li>
+  <li class="-mob-share-douban"><p>豆瓣</p></li>
+  <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+  <li class="-mob-share-instapaper"><p>Instapaper</p></li>
+</ul>
+<div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=27757904d54d4"></script>
+<!--MOB SHARE END-->
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headphoto.jpg"
+                alt="WilsonSong" />
+            
+              <p class="site-author-name" itemprop="name">WilsonSong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/songwell1024" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zySong0709@foxmail" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.csdn.net/WilsonSong1024" title="CSDN博客" target="_blank">CSDN博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          <div id="aplayer" class="aplayer"></div>
+<script src="/js/src/APlayer.min.js"></script>
+<script type="text/javascript">
+var ap = new APlayer({
+    element: document.getElementById('aplayer'),                       // Optional, player element
+    narrow: false,                                                     // Optional, narrow style
+    autoplay: false,                                                    // Optional, autoplay song(s), not supported by mobile browsers
+    showlrc: 0,                                                        // Optional, show lrc, can be 0, 1, 2, see: ###With lrc
+    mutex: true,                                                       // Optional, pause other players when this player playing
+    theme: '#e6d0b2',                                                  // Optional, theme color, default: #b7daff
+    mode: 'random',                                                    // Optional, play mode, can be `random` `single` `circulation`(loop) `order`(no loop), default: `circulation`
+    preload: 'metadata',                                               // Optional, the way to load music, can be 'none' 'metadata' 'auto', default: 'auto'
+    listmaxheight: '513px',                                             // Optional, max height of play list
+    music: [{
+      title: '那些你很冒险的梦',
+      author: '林俊杰',
+      url: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2Fdream.mp3',
+      pic: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2F1.webp',
+    },
+	{
+	  title: '修炼爱情',
+      author: '林俊杰',
+      url: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2F%E4%BF%AE%E7%82%BC%E7%88%B1%E6%83%85.mp3',
+      pic: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2Ftimg.webp',	
+	}
+	]
+  });
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式（参考《Head-First-设计模式》）"><span class="nav-number">1.</span> <span class="nav-text">设计模式（参考《Head First 设计模式》）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-设计模式的分类"><span class="nav-number">1.1.</span> <span class="nav-text">1.  设计模式的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-设计模式的六大原则"><span class="nav-number">1.2.</span> <span class="nav-text">2.  设计模式的六大原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总原则：开闭原则（Open-Close-Principle）"><span class="nav-number">1.2.1.</span> <span class="nav-text">总原则：开闭原则（Open Close Principle）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-单一职责原则"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.1  单一职责原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-里氏替换原则（Liskov-Substitution-Principle）"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.2  里氏替换原则（Liskov Substitution Principle）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-依赖倒置原则（Dependence-Inversion-Principle）"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.3  依赖倒置原则（Dependence Inversion Principle）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-接口隔离原则（Interface-Segregation-Principle）"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.4  接口隔离原则（Interface Segregation Principle）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-迪米特法则（最少知识原则）（Demeter-Principle）"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.5  迪米特法则（最少知识原则）（Demeter Principle）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-合成复用原则（Composite-Reuse-Principle）"><span class="nav-number">1.2.7.</span> <span class="nav-text">2.6  合成复用原则（Composite Reuse Principle）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-具体设计模式"><span class="nav-number">1.3.</span> <span class="nav-text">3.  具体设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-工厂模式"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-单例模式"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3生成器模式"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3生成器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4原型模式"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4原型模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5适配器模式"><span class="nav-number">1.3.5.</span> <span class="nav-text">3.5适配器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6组合模式"><span class="nav-number">1.3.6.</span> <span class="nav-text">3.6组合模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7装饰者模式"><span class="nav-number">1.3.7.</span> <span class="nav-text">3.7装饰者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8代理模式"><span class="nav-number">1.3.8.</span> <span class="nav-text">3.8代理模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9享元模式"><span class="nav-number">1.3.9.</span> <span class="nav-text">3.9享元模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10外观模式"><span class="nav-number">1.3.10.</span> <span class="nav-text">3.10外观模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-11桥接模式"><span class="nav-number">1.3.11.</span> <span class="nav-text">3.11桥接模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-12模板模式"><span class="nav-number">1.3.12.</span> <span class="nav-text">3.12模板模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-13解释器模式"><span class="nav-number">1.3.13.</span> <span class="nav-text">3.13解释器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-14策略模式"><span class="nav-number">1.3.14.</span> <span class="nav-text">3.14策略模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-15状态模式"><span class="nav-number">1.3.15.</span> <span class="nav-text">3.15状态模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-16-观察者模式"><span class="nav-number">1.3.16.</span> <span class="nav-text">3.16 观察者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-17备忘录模式"><span class="nav-number">1.3.17.</span> <span class="nav-text">3.17备忘录模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-18中介者模式"><span class="nav-number">1.3.18.</span> <span class="nav-text">3.18中介者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-19命令模式"><span class="nav-number">1.3.19.</span> <span class="nav-text">3.19命令模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-20访问者模式"><span class="nav-number">1.3.20.</span> <span class="nav-text">3.20访问者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-21责任链模式"><span class="nav-number">1.3.21.</span> <span class="nav-text">3.21责任链模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-22迭代器模式"><span class="nav-number">1.3.22.</span> <span class="nav-text">3.22迭代器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-23-复合模式"><span class="nav-number">1.3.23.</span> <span class="nav-text">3.23 复合模式</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WilsonSong</span>
+
+  
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共138.9k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'vmma2AyaJ0StcuxLmOdmPBMu-gzGzoHsz',
+        appKey: 'VfsPFNQTt5IgX8yrvzFmn3S9',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'/images/headphoto.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":75,"height":150,"horizontalOffset":12,"verticalOffset":-40},"mobile":{"show":true},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

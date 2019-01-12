@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SpringBoot,秒杀," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="记路心晴" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="SpringBoot（21） 基于阿里大于的短信验证微服务阿里大于其实就是阿里云下提供的一个服务，有开放API及SDK，用起来很方便，至于怎么去注册，开启服务，申请签名，生成短信模板，获取AccessKey，下载SDK和Demo等等操作就不详细介绍了，网上有很多的教程很详细，可以参考这篇博客：">
+<meta name="keywords" content="SpringBoot,秒杀">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot（21） 基于阿里大于的短信验证微服务">
+<meta property="og:url" content="https://songwell1024.github.io/2019/01/06/CheckSmsCode/index.html">
+<meta property="og:site_name" content="记路心晴">
+<meta property="og:description" content="SpringBoot（21） 基于阿里大于的短信验证微服务阿里大于其实就是阿里云下提供的一个服务，有开放API及SDK，用起来很方便，至于怎么去注册，开启服务，申请签名，生成短信模板，获取AccessKey，下载SDK和Demo等等操作就不详细介绍了，网上有很多的教程很详细，可以参考这篇博客：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://songwell1024.github.io/2019/01/06/CheckSmsCode/1.png">
+<meta property="og:updated_time" content="2019-01-12T10:43:00.334Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot（21） 基于阿里大于的短信验证微服务">
+<meta name="twitter:description" content="SpringBoot（21） 基于阿里大于的短信验证微服务阿里大于其实就是阿里云下提供的一个服务，有开放API及SDK，用起来很方便，至于怎么去注册，开启服务，申请签名，生成短信模板，获取AccessKey，下载SDK和Demo等等操作就不详细介绍了，网上有很多的教程很详细，可以参考这篇博客：">
+<meta name="twitter:image" content="https://songwell1024.github.io/2019/01/06/CheckSmsCode/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://songwell1024.github.io/2019/01/06/CheckSmsCode/"/>
+
+
+
+
+
+  <title>SpringBoot（21） 基于阿里大于的短信验证微服务 | 记路心晴</title>
+  
+
+
+
+
+
+
+
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband">
+		<a href="https://github.com/songwell1024" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red.png" alt="Fork me on GitHub"></a>
+		<a href="https://github.com/songwell1024" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub">
+				<svg width="80" height="80" viewBox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+					<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+					<path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+				</svg>
+		</a>
+	</div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+		<div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">记路心晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心晴路放</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://songwell1024.github.io/2019/01/06/CheckSmsCode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WilsonSong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headphoto.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记路心晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringBoot（21） 基于阿里大于的短信验证微服务</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T20:05:48+08:00">
+                2019-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/06/CheckSmsCode/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/06/CheckSmsCode/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文共计&#58;</span>
+                
+                <span title="本文共计">
+                  2,802
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读耗时 &asymp;</span>
+                
+                <span title="阅读耗时">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="SpringBoot（21）-基于阿里大于的短信验证微服务"><a href="#SpringBoot（21）-基于阿里大于的短信验证微服务" class="headerlink" title="SpringBoot（21） 基于阿里大于的短信验证微服务"></a>SpringBoot（21） 基于阿里大于的短信验证微服务</h1><p>阿里大于其实就是阿里云下提供的一个服务，有开放API及SDK，用起来很方便，至于怎么去注册，开启服务，申请签名，生成短信模板，获取AccessKey，下载SDK和Demo等等操作就不详细介绍了，网上有很多的教程很详细，可以参考这篇博客：</p>
+<a id="more"></a>
+<p><a href="https://blog.csdn.net/qq1031893936/article/details/81173878" target="_blank" rel="noopener">https://blog.csdn.net/qq1031893936/article/details/81173878</a></p>
+<p>其中下载SDK地址： <a href="https://help.aliyun.com/document_detail/55359.html?spm=5176.doc55284.2.6.iRVRZy" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/55359.html?spm=5176.doc55284.2.6.iRVRZy</a></p>
+<p>这里主要是写短信验证功能是怎么实现的。并把它做成一个微服务的这样通用框架，然后通过这个短信上的微服务框架，使得用户服务可以通过rabbitMQ（正好项目中也用到了rabbitMQ）调用短信微服务实现与阿里大于的交换，实现短信的发送和验证。</p>
+<p>SDK下载之后解压目录如下，api_demo是官方例程,api_sdk中包含了两个jar包</p>
+<p><img src="/2019/01/06/CheckSmsCode/1.png" alt="1"></p>
+<p>在项目中添加两个jar包(aliyun-java-sdk-core-3.3.1.jar和aliyun-java-sdk-dysmsapi-1.0.0.jar)，并在Maven（pom.xml文件）中添加依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--阿里大于--&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;aliyun-java-sdk-core&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;aliyun-java-sdk-core&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.0&lt;/version&gt;</span><br><span class="line">      &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">      &lt;systemPath&gt;$&#123;project.basedir&#125;/src/main/webapp/WEB-INF/lib/aliyun-java-sdk-core-3.3.1.jar&lt;/systemPath&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;aliyun-java-sdk-dysmsapi&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;aliyun-java-sdk-dysmsapi&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;1.0&lt;/version&gt;</span><br><span class="line">      &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">      &lt;systemPath&gt;$&#123;project.basedir&#125;/src/main/webapp/WEB-INF/lib/aliyun-java-sdk-dysmsapi-1.0.0.jar&lt;/systemPath&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>这样的话其实就已经完成了基础的配置。</p>
+<p>然后api_demo下有官方给出的demo具体代码如下，其实就是两个核心函数，sendSms()实现的是发短信的功能，querySendDetails（）实现查询发送短信的详细信息.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springboot.SecKill.SMSVerification;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.DefaultAcsClient;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.IAcsClient;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsRequest;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsResponse;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.dysmsapi.transform.v20170525.SendSmsResponseUnmarshaller;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.exceptions.ClientException;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.http.FormatType;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.http.HttpResponse;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.profile.DefaultProfile;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.profile.IClientProfile;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.nio.charset.Charset;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created on 17/6/7.</span></span><br><span class="line"><span class="comment"> * 短信API产品的DEMO程序,工程中包含了一个SmsDemo类，直接通过</span></span><br><span class="line"><span class="comment"> * 执行main函数即可体验短信产品API功能(只需要将AK替换成开通了云通信-短信产品功能的AK即可)</span></span><br><span class="line"><span class="comment"> * 工程依赖了2个jar包(存放在工程的libs目录下)</span></span><br><span class="line"><span class="comment"> * 1:aliyun-java-sdk-core.jar</span></span><br><span class="line"><span class="comment"> * 2:aliyun-java-sdk-dysmsapi.jar</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 备注:Demo工程编码采用UTF-8</span></span><br><span class="line"><span class="comment"> * 国际短信发送请勿参照此DEMO</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SmsDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//产品名称:云通信短信API产品,开发者无需替换</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> String product = <span class="string">"Dysmsapi"</span>;</span><br><span class="line">    <span class="comment">//产品域名,开发者无需替换</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> String domain = <span class="string">"dysmsapi.aliyuncs.com"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> String accessKeyId = <span class="string">"yourAccessKeyId"</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> String accessKeySecret = <span class="string">"yourAccessKeySecret"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SendSmsResponse <span class="title">sendSms</span><span class="params">()</span> <span class="keyword">throws</span> ClientException </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//可自助调整超时时间</span></span><br><span class="line">        System.setProperty(<span class="string">"sun.net.client.defaultConnectTimeout"</span>, <span class="string">"10000"</span>);</span><br><span class="line">        System.setProperty(<span class="string">"sun.net.client.defaultReadTimeout"</span>, <span class="string">"10000"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//初始化acsClient,暂不支持region化</span></span><br><span class="line">        IClientProfile profile = DefaultProfile.getProfile(<span class="string">"cn-hangzhou"</span>, accessKeyId, accessKeySecret);</span><br><span class="line">        DefaultProfile.addEndpoint(<span class="string">"cn-hangzhou"</span>, <span class="string">"cn-hangzhou"</span>, product, domain);</span><br><span class="line">        IAcsClient acsClient = <span class="keyword">new</span> DefaultAcsClient(profile);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//组装请求对象-具体描述见控制台-文档部分内容</span></span><br><span class="line">        SendSmsRequest request = <span class="keyword">new</span> SendSmsRequest();</span><br><span class="line">        <span class="comment">//必填:待发送手机号</span></span><br><span class="line">        request.setPhoneNumbers(<span class="string">"15000000000"</span>);</span><br><span class="line">        <span class="comment">//必填:短信签名-可在短信控制台中找到</span></span><br><span class="line">        request.setSignName(<span class="string">"云通信"</span>);</span><br><span class="line">        <span class="comment">//必填:短信模板-可在短信控制台中找到</span></span><br><span class="line">        request.setTemplateCode(<span class="string">"SMS_1000000"</span>);</span><br><span class="line">        <span class="comment">//可选:模板中的变量替换JSON串,如模板内容为"亲爱的$&#123;name&#125;,您的验证码为$&#123;code&#125;"时,此处的值为</span></span><br><span class="line">        request.setTemplateParam(<span class="string">"&#123;\"name\":\"Tom\", \"code\":\"123\"&#125;"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//选填-上行短信扩展码(无特殊需求用户请忽略此字段)</span></span><br><span class="line">        <span class="comment">//request.setSmsUpExtendCode("90997");</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者</span></span><br><span class="line">        request.setOutId(<span class="string">"yourOutId"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//hint 此处可能会抛出异常，注意catch</span></span><br><span class="line">        SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sendSmsResponse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> QuerySendDetailsResponse <span class="title">querySendDetails</span><span class="params">(String bizId)</span> <span class="keyword">throws</span> ClientException </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//可自助调整超时时间</span></span><br><span class="line">        System.setProperty(<span class="string">"sun.net.client.defaultConnectTimeout"</span>, <span class="string">"10000"</span>);</span><br><span class="line">        System.setProperty(<span class="string">"sun.net.client.defaultReadTimeout"</span>, <span class="string">"10000"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//初始化acsClient,暂不支持region化</span></span><br><span class="line">        IClientProfile profile = DefaultProfile.getProfile(<span class="string">"cn-hangzhou"</span>, accessKeyId, accessKeySecret);</span><br><span class="line">        DefaultProfile.addEndpoint(<span class="string">"cn-hangzhou"</span>, <span class="string">"cn-hangzhou"</span>, product, domain);</span><br><span class="line">        IAcsClient acsClient = <span class="keyword">new</span> DefaultAcsClient(profile);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//组装请求对象</span></span><br><span class="line">        QuerySendDetailsRequest request = <span class="keyword">new</span> QuerySendDetailsRequest();</span><br><span class="line">        <span class="comment">//必填-号码</span></span><br><span class="line">        request.setPhoneNumber(<span class="string">"15000000000"</span>);</span><br><span class="line">        <span class="comment">//可选-流水号</span></span><br><span class="line">        request.setBizId(bizId);</span><br><span class="line">        <span class="comment">//必填-发送日期 支持30天内记录查询，格式yyyyMMdd</span></span><br><span class="line">        SimpleDateFormat ft = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyyMMdd"</span>);</span><br><span class="line">        request.setSendDate(ft.format(<span class="keyword">new</span> Date()));</span><br><span class="line">        <span class="comment">//必填-页大小</span></span><br><span class="line">        request.setPageSize(<span class="number">10L</span>);</span><br><span class="line">        <span class="comment">//必填-当前页码从1开始计数</span></span><br><span class="line">        request.setCurrentPage(<span class="number">1L</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//hint 此处可能会抛出异常，注意catch</span></span><br><span class="line">        QuerySendDetailsResponse querySendDetailsResponse = acsClient.getAcsResponse(request);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> querySendDetailsResponse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClientException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//发短信</span></span><br><span class="line">        SendSmsResponse response = sendSms();</span><br><span class="line">        System.out.println(<span class="string">"短信接口返回的数据----------------"</span>);</span><br><span class="line">        System.out.println(<span class="string">"Code="</span> + response.getCode());</span><br><span class="line">        System.out.println(<span class="string">"Message="</span> + response.getMessage());</span><br><span class="line">        System.out.println(<span class="string">"RequestId="</span> + response.getRequestId());</span><br><span class="line">        System.out.println(<span class="string">"BizId="</span> + response.getBizId());</span><br><span class="line"></span><br><span class="line">        Thread.sleep(<span class="number">3000L</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//查明细</span></span><br><span class="line">        <span class="keyword">if</span>(response.getCode() != <span class="keyword">null</span> &amp;&amp; response.getCode().equals(<span class="string">"OK"</span>)) &#123;</span><br><span class="line">            QuerySendDetailsResponse querySendDetailsResponse = querySendDetails(response.getBizId());</span><br><span class="line">            System.out.println(<span class="string">"短信明细查询接口返回数据----------------"</span>);</span><br><span class="line">            System.out.println(<span class="string">"Code="</span> + querySendDetailsResponse.getCode());</span><br><span class="line">            System.out.println(<span class="string">"Message="</span> + querySendDetailsResponse.getMessage());</span><br><span class="line">            <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(QuerySendDetailsResponse.SmsSendDetailDTO smsSendDetailDTO : querySendDetailsResponse.getSmsSendDetailDTOs())</span><br><span class="line">            &#123;</span><br><span class="line">                System.out.println(<span class="string">"SmsSendDetailDTO["</span>+i+<span class="string">"]:"</span>);</span><br><span class="line">                System.out.println(<span class="string">"Content="</span> + smsSendDetailDTO.getContent());</span><br><span class="line">                System.out.println(<span class="string">"ErrCode="</span> + smsSendDetailDTO.getErrCode());</span><br><span class="line">                System.out.println(<span class="string">"OutId="</span> + smsSendDetailDTO.getOutId());</span><br><span class="line">                System.out.println(<span class="string">"PhoneNum="</span> + smsSendDetailDTO.getPhoneNum());</span><br><span class="line">                System.out.println(<span class="string">"ReceiveDate="</span> + smsSendDetailDTO.getReceiveDate());</span><br><span class="line">                System.out.println(<span class="string">"SendDate="</span> + smsSendDetailDTO.getSendDate());</span><br><span class="line">                System.out.println(<span class="string">"SendStatus="</span> + smsSendDetailDTO.getSendStatus());</span><br><span class="line">                System.out.println(<span class="string">"Template="</span> + smsSendDetailDTO.getTemplateCode());</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"TotalCount="</span> + querySendDetailsResponse.getTotalCount());</span><br><span class="line">            System.out.println(<span class="string">"RequestId="</span> + querySendDetailsResponse.getRequestId());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在SpringBoot中具体的使用阿里大于来实现短信验证,注册登录功能.</p>
+<h4 id="1-在application-properties文件中添加配置"><a href="#1-在application-properties文件中添加配置" class="headerlink" title="1. 在application.properties文件中添加配置"></a>1. 在application.properties文件中添加配置</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">accessKeyId = xxxxx;</span><br><span class="line">accessKeySecret = xxxxx;</span><br></pre></td></tr></table></figure>
+<h4 id="2-短信发送类"><a href="#2-短信发送类" class="headerlink" title="2. 短信发送类"></a>2. 短信发送类</h4><p>其实就是吧官方的demo修改一下，把其中的一些参数改变成为传入参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springboot.SecKill.SMSVerification;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.DefaultAcsClient;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.IAcsClient;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsRequest;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsResponse;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.dysmsapi.transform.v20170525.SendSmsResponseUnmarshaller;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.exceptions.ClientException;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.http.FormatType;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.http.HttpResponse;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.profile.DefaultProfile;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.profile.IClientProfile;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.env.Environment;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.nio.charset.Charset;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SMSUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//产品名称:云通信短信API产品,开发者无需替换</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> String product = <span class="string">"Dysmsapi"</span>;</span><br><span class="line">    <span class="comment">//产品域名,开发者无需替换</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> String domain = <span class="string">"dysmsapi.aliyuncs.com"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Environment environment;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SendSmsResponse <span class="title">sendSms</span><span class="params">(String mobile,String template_code,String sign_name,String param)</span> <span class="keyword">throws</span> ClientException </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//可自助调整超时时间</span></span><br><span class="line">        System.setProperty(<span class="string">"sun.net.client.defaultConnectTimeout"</span>, <span class="string">"10000"</span>);</span><br><span class="line">        System.setProperty(<span class="string">"sun.net.client.defaultReadTimeout"</span>, <span class="string">"10000"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//读取配置文件中的这两个配置变量</span></span><br><span class="line">        String accessKeyId = environment.getProperty(<span class="string">"accessKeyId"</span>);</span><br><span class="line">        String accessKeySecret = environment.getProperty(<span class="string">"accessKeySecret"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//初始化acsClient,暂不支持region化</span></span><br><span class="line">        IClientProfile profile = DefaultProfile.getProfile(<span class="string">"cn-hangzhou"</span>, accessKeyId, accessKeySecret);</span><br><span class="line">        DefaultProfile.addEndpoint(<span class="string">"cn-hangzhou"</span>, <span class="string">"cn-hangzhou"</span>, product, domain);</span><br><span class="line">        IAcsClient acsClient = <span class="keyword">new</span> DefaultAcsClient(profile);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//组装请求对象-具体描述见控制台-文档部分内容</span></span><br><span class="line">        SendSmsRequest request = <span class="keyword">new</span> SendSmsRequest();</span><br><span class="line">        <span class="comment">//必填:待发送手机号</span></span><br><span class="line">        request.setPhoneNumbers(mobile);      <span class="comment">//你要发送的手机号</span></span><br><span class="line">        <span class="comment">//必填:短信签名-可在短信控制台中找到</span></span><br><span class="line">        request.setSignName(sign_name);     <span class="comment">//必须是你自己的已经审核通过的签名</span></span><br><span class="line">        <span class="comment">//必填:短信模板-可在短信控制台中找到</span></span><br><span class="line">        request.setTemplateCode(template_code);   <span class="comment">//模板CODE</span></span><br><span class="line">        <span class="comment">//可选:模板中的变量替换JSON串,如模板内容为"亲爱的$&#123;name&#125;,您的验证码为$&#123;code&#125;"时,此处的值为</span></span><br><span class="line">        request.setTemplateParam(param);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//选填-上行短信扩展码(无特殊需求用户请忽略此字段)</span></span><br><span class="line">        <span class="comment">//request.setSmsUpExtendCode("90997");</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者</span></span><br><span class="line">        request.setOutId(<span class="string">"yourOutId"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//hint 此处可能会抛出异常，注意catch</span></span><br><span class="line">        SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sendSmsResponse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  QuerySendDetailsResponse <span class="title">querySendDetails</span><span class="params">(String mobile,String bizId)</span> <span class="keyword">throws</span> ClientException </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//可自助调整超时时间</span></span><br><span class="line">        System.setProperty(<span class="string">"sun.net.client.defaultConnectTimeout"</span>, <span class="string">"10000"</span>);</span><br><span class="line">        System.setProperty(<span class="string">"sun.net.client.defaultReadTimeout"</span>, <span class="string">"10000"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//读取配置文件中的这两个配置变量</span></span><br><span class="line">        String accessKeyId = environment.getProperty(<span class="string">"accessKeyId"</span>);</span><br><span class="line">        String accessKeySecret = environment.getProperty(<span class="string">"accessKeySecret"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//初始化acsClient,暂不支持region化</span></span><br><span class="line">        IClientProfile profile = DefaultProfile.getProfile(<span class="string">"cn-hangzhou"</span>, accessKeyId, accessKeySecret);</span><br><span class="line">        DefaultProfile.addEndpoint(<span class="string">"cn-hangzhou"</span>, <span class="string">"cn-hangzhou"</span>, product, domain);</span><br><span class="line">        IAcsClient acsClient = <span class="keyword">new</span> DefaultAcsClient(profile);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//组装请求对象</span></span><br><span class="line">        QuerySendDetailsRequest request = <span class="keyword">new</span> QuerySendDetailsRequest();</span><br><span class="line">        <span class="comment">//必填-号码</span></span><br><span class="line">        request.setPhoneNumber(mobile);</span><br><span class="line">        <span class="comment">//可选-流水号</span></span><br><span class="line">        request.setBizId(bizId);</span><br><span class="line">        <span class="comment">//必填-发送日期 支持30天内记录查询，格式yyyyMMdd</span></span><br><span class="line">        SimpleDateFormat ft = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyyMMdd"</span>);</span><br><span class="line">        request.setSendDate(ft.format(<span class="keyword">new</span> Date()));</span><br><span class="line">        <span class="comment">//必填-页大小</span></span><br><span class="line">        request.setPageSize(<span class="number">10L</span>);</span><br><span class="line">        <span class="comment">//必填-当前页码从1开始计数</span></span><br><span class="line">        request.setCurrentPage(<span class="number">1L</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//hint 此处可能会抛出异常，注意catch</span></span><br><span class="line">        QuerySendDetailsResponse querySendDetailsResponse = acsClient.getAcsResponse(request);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> querySendDetailsResponse;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-rabbitMQ实现短信接收"><a href="#3-rabbitMQ实现短信接收" class="headerlink" title="3. rabbitMQ实现短信接收"></a>3. rabbitMQ实现短信接收</h4><p>rabbitMQ中显定义一个队列，并初始化(下面就是简要的把要添加的内容写出来了，项目中使用了不止这一个对列)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MQConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String SMS_QUEUE = <span class="string">"Sms.QUEUE"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Direct 交换机模式</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="comment">//队列</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Queue <span class="title">Sms_QUEUE</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Queue(SECKILL_QUEUE,<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>然后接收类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.springboot.SecKill.SMSVerification;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.exceptions.ClientException;</span><br><span class="line"><span class="keyword">import</span> com.springboot.SecKill.rabbitmq.MQConfig;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.rabbit.annotation.RabbitListener;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> WilsonSong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/1/6/006</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SMSListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SMSUtil smsUtil;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RabbitListener</span>(queues = MQConfig.SMS_QUEUE)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendSms</span><span class="params">(Map&lt;String,String&gt; map)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            SendSmsResponse response = smsUtil.sendSms(map.get(<span class="string">"mobile"</span>),</span><br><span class="line">                    map.get(<span class="string">"template_code"</span>) ,</span><br><span class="line">                    map.get(<span class="string">"sign_name"</span>)  ,</span><br><span class="line">                    map.get(<span class="string">"param"</span>) );</span><br><span class="line">            System.out.println(<span class="string">"code:"</span>+response.getCode());</span><br><span class="line">            System.out.println(<span class="string">"message:"</span>+response.getMessage());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClientException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实到这里就形成了一个通用的短信发送服务，用户在注册或登录的时候只需要通过RabbitMQ读取MQConfig.SMS_QUEUE对列中的短信即可。</p>
+<h4 id="4-写一个网页测试"><a href="#4-写一个网页测试" class="headerlink" title="4. 写一个网页测试"></a>4. 写一个网页测试</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QueueController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">    AmqpTemplate amqpTemplate;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/sendmap"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMap</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Map map=<span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">		map.put(<span class="string">"mobile"</span>, <span class="string">"xxxxxx"</span>);  <span class="comment">//手机号</span></span><br><span class="line">		map.put(<span class="string">"template_code"</span>, <span class="string">"SMS_xxxxxxx"</span>);  <span class="comment">//短信模板，模板CODE</span></span><br><span class="line">		map.put(<span class="string">"sign_name"</span>,<span class="string">"xxxxxx"</span>);   <span class="comment">//申请的短信签名</span></span><br><span class="line">		map.put(<span class="string">"param"</span>, <span class="string">"&#123;\"name\":\"xxxx\"&#125;"</span>);   <span class="comment">//你自己定义的短线模板的格式和参数</span></span><br><span class="line">		</span><br><span class="line">		amqpTemplate.convertAndSend(MQConfig.Sms_QUEUE, map);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到这里其实就完成了，接下来就是把这个整合到登陆注册页面上去，实现短信的发送，验证功能,其实具体的流程是很简单的，就是生成-RabbitMQ-后端检验，具体的就有些繁琐，就不具体详细写了，完整的代码可以去我的github上下载，右侧有链接。</p>
+
+      
+    </div>
+    
+    
+    
+	<div>
+		  
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2019/01/06/CheckSmsCode/">SpringBoot（21） 基于阿里大于的短信验证微服务</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 WilsonSong 的个人博客">WilsonSong</a></p>
+  <p><span>发布时间:</span>2019年01月06日 - 20:01</p>
+  <p><span>最后更新:</span>2019年01月12日 - 18:01</p>
+  <p><span>原始链接:</span><a href="/2019/01/06/CheckSmsCode/" title="SpringBoot（21） 基于阿里大于的短信验证微服务">https://songwell1024.github.io/2019/01/06/CheckSmsCode/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://songwell1024.github.io/2019/01/06/CheckSmsCode/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+		  
+	</div>
+	
+    
+
+	  <div>
+	    
+	    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	    
+	  </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringBoot/" rel="tag"><i class="fa fa-tag"></i> SpringBoot</a>
+          
+            <a href="/tags/秒杀/" rel="tag"><i class="fa fa-tag"></i> 秒杀</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/21/PaperRead3/" rel="next" title="文献阅读整理 20181013">
+                <i class="fa fa-chevron-left"></i> 文献阅读整理 20181013
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+		<!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分 享</div>
+<div class="-mob-share-ui"  -mob-share-ui-theme -mob-share-ui-theme-slide-bottom style="display: none">
+<ul class="-mob-share-list">
+  <li class="-mob-share-weixin"><p>微信</p></li>
+  <li class="-mob-share-qzone"><p>QQ空间</p></li>
+  <li class="-mob-share-weibo"><p>新浪微博</p></li>
+  <li class="-mob-share-facebook"><p>Facebook</p></li>
+  <li class="-mob-share-twitter"><p>Twitter</p></li>
+  <li class="-mob-share-pocket"><p>Pocket</p></li>
+  <li class="-mob-share-tumblr"><p>Tumblr</p></li>
+  <li class="-mob-share-google"><p>Google+</p></li>
+  <li class="-mob-share-linkedin"><p>Linkedin</p></li>
+  <li class="-mob-share-qq"><p>QQ好友</p></li>
+  <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+  <li class="-mob-share-renren"><p>人人网</p></li>
+  <li class="-mob-share-douban"><p>豆瓣</p></li>
+  <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+  <li class="-mob-share-instapaper"><p>Instapaper</p></li>
+</ul>
+<div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=27757904d54d4"></script>
+<!--MOB SHARE END-->
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headphoto.jpg"
+                alt="WilsonSong" />
+            
+              <p class="site-author-name" itemprop="name">WilsonSong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/songwell1024" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zySong0709@foxmail" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.csdn.net/WilsonSong1024" title="CSDN博客" target="_blank">CSDN博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          <div id="aplayer" class="aplayer"></div>
+<script src="/js/src/APlayer.min.js"></script>
+<script type="text/javascript">
+var ap = new APlayer({
+    element: document.getElementById('aplayer'),                       // Optional, player element
+    narrow: false,                                                     // Optional, narrow style
+    autoplay: false,                                                    // Optional, autoplay song(s), not supported by mobile browsers
+    showlrc: 0,                                                        // Optional, show lrc, can be 0, 1, 2, see: ###With lrc
+    mutex: true,                                                       // Optional, pause other players when this player playing
+    theme: '#e6d0b2',                                                  // Optional, theme color, default: #b7daff
+    mode: 'random',                                                    // Optional, play mode, can be `random` `single` `circulation`(loop) `order`(no loop), default: `circulation`
+    preload: 'metadata',                                               // Optional, the way to load music, can be 'none' 'metadata' 'auto', default: 'auto'
+    listmaxheight: '513px',                                             // Optional, max height of play list
+    music: [{
+      title: '那些你很冒险的梦',
+      author: '林俊杰',
+      url: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2Fdream.mp3',
+      pic: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2F1.webp',
+    },
+	{
+	  title: '修炼爱情',
+      author: '林俊杰',
+      url: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2F%E4%BF%AE%E7%82%BC%E7%88%B1%E6%83%85.mp3',
+      pic: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2Ftimg.webp',	
+	}
+	]
+  });
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot（21）-基于阿里大于的短信验证微服务"><span class="nav-number">1.</span> <span class="nav-text">SpringBoot（21） 基于阿里大于的短信验证微服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在application-properties文件中添加配置"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1. 在application.properties文件中添加配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-短信发送类"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2. 短信发送类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-rabbitMQ实现短信接收"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">3. rabbitMQ实现短信接收</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-写一个网页测试"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">4. 写一个网页测试</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WilsonSong</span>
+
+  
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共138.9k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'vmma2AyaJ0StcuxLmOdmPBMu-gzGzoHsz',
+        appKey: 'VfsPFNQTt5IgX8yrvzFmn3S9',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'/images/headphoto.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":75,"height":150,"horizontalOffset":12,"verticalOffset":-40},"mobile":{"show":true},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

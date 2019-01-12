@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="文献阅读,安卓重打包," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="记路心晴" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="文献阅读1  A Framework for Evaluating Mobile App Repackaging Detection Algorithms 引用：Huang H, Zhu S, Liu P, et al. A Framework for Evaluating Mobile App Repackaging Detection Algorithms[M]// Trust and Tru">
+<meta name="keywords" content="文献阅读,安卓重打包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文献阅读20180929">
+<meta property="og:url" content="https://songwell1024.github.io/2018/09/30/PaperRead2/index.html">
+<meta property="og:site_name" content="记路心晴">
+<meta property="og:description" content="文献阅读1  A Framework for Evaluating Mobile App Repackaging Detection Algorithms 引用：Huang H, Zhu S, Liu P, et al. A Framework for Evaluating Mobile App Repackaging Detection Algorithms[M]// Trust and Tru">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://songwell1024.github.io/2018/09/30/PaperRead2/1.png">
+<meta property="og:image" content="https://songwell1024.github.io/2018/09/30/PaperRead2/2.png">
+<meta property="og:image" content="https://songwell1024.github.io/2018/09/30/PaperRead2/3.png">
+<meta property="og:image" content="https://songwell1024.github.io/2018/09/30/PaperRead2/4.png">
+<meta property="og:image" content="https://songwell1024.github.io/2018/09/30/PaperRead2/5.png">
+<meta property="og:updated_time" content="2018-10-21T12:12:39.642Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文献阅读20180929">
+<meta name="twitter:description" content="文献阅读1  A Framework for Evaluating Mobile App Repackaging Detection Algorithms 引用：Huang H, Zhu S, Liu P, et al. A Framework for Evaluating Mobile App Repackaging Detection Algorithms[M]// Trust and Tru">
+<meta name="twitter:image" content="https://songwell1024.github.io/2018/09/30/PaperRead2/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://songwell1024.github.io/2018/09/30/PaperRead2/"/>
+
+
+
+
+
+  <title>文献阅读20180929 | 记路心晴</title>
+  
+
+
+
+
+
+
+
+
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband">
+		<a href="https://github.com/songwell1024" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red.png" alt="Fork me on GitHub"></a>
+		<a href="https://github.com/songwell1024" class="github-corner" target="_blank" title="Follow me on GitHub" aria-label="Follow me on GitHub">
+				<svg width="80" height="80" viewBox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+					<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+					<path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+				</svg>
+		</a>
+	</div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+		<div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">记路心晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心晴路放</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://songwell1024.github.io/2018/09/30/PaperRead2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WilsonSong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/headphoto.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记路心晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">文献阅读20180929</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-30T15:35:44+08:00">
+                2018-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/文献阅读/" itemprop="url" rel="index">
+                    <span itemprop="name">文献阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/30/PaperRead2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/09/30/PaperRead2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文共计&#58;</span>
+                
+                <span title="本文共计">
+                  4,159
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读耗时 &asymp;</span>
+                
+                <span title="阅读耗时">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="文献阅读"><a href="#文献阅读" class="headerlink" title="文献阅读"></a>文献阅读</h1><h2 id="1-A-Framework-for-Evaluating-Mobile-App-Repackaging-Detection-Algorithms"><a href="#1-A-Framework-for-Evaluating-Mobile-App-Repackaging-Detection-Algorithms" class="headerlink" title="1  A Framework for Evaluating Mobile App Repackaging Detection Algorithms"></a>1  A Framework for Evaluating Mobile App Repackaging Detection Algorithms</h2><ul>
+<li>引用：<strong>Huang H, Zhu S, Liu P, et al. A Framework for Evaluating Mobile App Repackaging Detection Algorithms[M]// Trust and Trustworthy Computing. Springer Berlin Heidelberg, 2013:169-186.</strong></li>
+</ul>
+<a id="more"></a>
+<h3 id="1-1-文章中提到的几种方法"><a href="#1-1-文章中提到的几种方法" class="headerlink" title="1.1  文章中提到的几种方法"></a>1.1  文章中提到的几种方法</h3><ol>
+<li><p><strong>DroidMOSS</strong>：使用一种称为模糊散列的特殊的散列技术：这种方法是计算每个单元中的dex文件的哈希值，它使用重置点将长操作码序列拆分为小单元，然后将所有散列值连接成一个整体。这种方法的缺点是一个是一些重新打包的情况将大量代码作为噪声插入到原始应用程序中，另一个事实是广告库的不完整白名单，这会在操作码序列中产生大量噪声。这样的计算出的哈希值也就有很大的可能性不一样了。（1-2-3-4  加入噪声之后就是1-2-<strong>8-8-6-7</strong>-3-4这样的话哈希值就差很多，可能计算出来只有50%的相似度。）同样的罗宾的论文中的基于类目录的方法的缺点也是这样的，也是如果我通过添加一些随机的噪声类，可能不起啥作用，但还是导致hash值变换的很多。</p>
+</li>
+<li><p><strong>DNADroid</strong>：就是将dex文件通过名为dex2jar的工具转换为Jar，这样他们就可以利用WALA [14]计算每种方法的静态数据依赖图（DDG）。 DDG被认为是相似性比较应用程序的主要特征。 DNADroid使用基于图形同构的算法比较预先计算的Android应用程序集群中的DDG。其实就是函数调用或者是变量调用依赖关系图，这种方法的话其实一样的，我可以添加无用的变量来实现让别的函数调用它，其实这段代码不起啥作用。</p>
+</li>
+<li><p><strong>基于特征哈希的检测</strong>：首先是将dex文件根据某些预定义标准进行分组，以减少比较开销，他的特征的选择是：在程序的每个基本块内的各种操作码序列模式的k-gram被认为是特征。例如，他们选择5-gram作为大小为5的移动窗口，它在每个基本块内移动以映射并将特征标记为m位向量。然后将位向量进一步组合成特征度量以指纹每个app。 Juxtapp目前使用各种预定义的操作码序列作为特征。其实就是在代码中发现了（A_B_C_D_E这种形式的时候就把他映射成是一个向量（A是一个实例，B是一个字符串常量，C是一个方法调用这种过程））</p>
+<p>还是和上面一样的缺点，噪声代码的注入，怎么办？尽管可以缩小移动窗口的大小，但是这样的话就会提高误报的概率。</p>
+</li>
+</ol>
+<h3 id="1-2-文章给出的评估框架："><a href="#1-2-文章给出的评估框架：" class="headerlink" title="1.2  文章给出的评估框架："></a>1.2  文章给出的评估框架：</h3><p>   <img src="/2018/09/30/PaperRead2/1.png" alt="1537425695"></p>
+<p>第一个组件称为Dalvik Bytecode预处理器，它将Dalvik EXecutable（DEX）分解并转换为中间表示（IR）代码格式。第二个组件是IR Code Obfuscator，它直接用于原始程序的输出IR格式。IR Code Obfuscator试图模仿基于真实世界的混淆重新打包过程。因此，该组件从原始输入dex文件输出一组混淆版本。在此过程中，我们必须确保所有代码操作和混淆操作都是语义保留转换。在混淆之后，IR2Dex Repackager将语义等效的IR代码转换回Dalvik字节码，以便它与大多数检测器兼容，这些检测器将dex文件作为输入。</p>
+<p>dx工具用作重打包的工具</p>
+<p>接下来的就是介绍每个组件使用不同的工具去实现这个框架，然后通过分析不同的混淆方法来实现这个框架的评估。</p>
+<h2 id="2-用于自动Android恶意软件检测的深度神经网络"><a href="#2-用于自动Android恶意软件检测的深度神经网络" class="headerlink" title="2  用于自动Android恶意软件检测的深度神经网络"></a>2  用于自动Android恶意软件检测的深度神经网络</h2><ul>
+<li>引用：<strong>Hou S, Saas A, Chen L, et al. Deep Neural Networks for Automatic Android Malware Detection[C]// Ieee/acm International Conference on Advances in Social Networks Analysis and Mining. ACM, 2017:803-810.</strong></li>
+</ul>
+<h3 id="2-1-数据集来源："><a href="#2-1-数据集来源：" class="headerlink" title="2.1   数据集来源："></a>2.1   数据集来源：</h3><p>Comodo云安全中心的真实样本集</p>
+<h3 id="2-2-本文中的方法："><a href="#2-2-本文中的方法：" class="headerlink" title="2.2  本文中的方法："></a>2.2  本文中的方法：</h3><p>在本文中，基于从smali文件中提取的应用程序编程接口（API）调用的分析，我们进一步将属于smali代码中的某个方法的API调用分类为块。基于生成的API调用块，我们然后探索深度神经网络（即，深度信念网络（DBN）和堆叠自动编码器（SAEs））以用于新未知的Android恶意软件检测。我们不再直接使用API调用，而是进一步对属于smali代码中相同方法的API调用进行分类,形成检测的特征样本。</p>
+<h3 id="2-3-提到的其他的方法："><a href="#2-3-提到的其他的方法：" class="headerlink" title="2.3 提到的其他的方法："></a>2.3 提到的其他的方法：</h3><ol>
+<li>‘W. Wu and S. Hung, “Droiddolphin: a dynamic android malware detection framework using big data and machine learning,” in RACS, 2014.’中使用动态分析框架（包括DroidBox 2和APE3）来记录收集的Android应用程序中的13个活动特征，然后应用支持向量机（SVM）构建恶意软件预测模型</li>
+<li>‘A. U. Z. I. Burguera and S. Nadjm-Tehrani, “Crowdroid: behavior-based malware detection system for android,” in SPSM, 2011.’将API系统调用解压缩为k-means聚类的特征集</li>
+<li>API调用，权限和意图消息作为k-means聚类的输入特征，最后是k-NN分类</li>
+<li>由API调用和权限请求组成的功能集，然后将它们提供给SVM，决策树和集合分类器。</li>
+</ol>
+<h3 id="本文架构"><a href="#本文架构" class="headerlink" title="本文架构"></a>本文架构</h3><p><img src="/2018/09/30/PaperRead2/2.png" alt="1537495377"></p>
+<p>本文中提出的架构如上图所示：</p>
+<p>恶意软件检测程序：对于每个新收集的未知Android应用程序，它将首先通过解压缩器和反编译器进行解析以获取smali代码，然后将从smali代码中提取其API调用，最后将生成API调用块作为特征向量。通过使用构建的分类模型，此应用程序将标记为良性或恶意。其实就是把API调用块映射成向量的形式。举个例子（Lorg/apache/http/HttpRequest;!addHeader” —-》&lt;520,506&gt; — &gt;\<a>)</a></p>
+<p>然后就是构建特征集（<br>$$<br>D = (x_{i},y_{i})_{i=1}^{n}<br>$$<br>x表示API调用块形成的特征向量，y表示对应的程序。</p>
+<p>然后将上述数据集放到DBN或者是SAEs中去训练。</p>
+<p>要使用SAE进行Android恶意软件检测，需要在顶层添加分类器。</p>
+<p>使用反向传播（BP）和基于梯度的优化技术训练SAE深度网络是很简单的，然而，已知以这种方式训练的深度网络具有差的性能。幸运的是，Hinton等人开发的贪婪分层无监督学习算法。 [8]已经克服了这个问题。该算法的关键在于以自下而上的方式逐层预加深深层网络，然后以自上而下的方式应用BP对参数进行微调，从而获得更好的结果。</p>
+<p>最后的实验结果是DBN优于SAEs优于浅层的学习模型如DT，SVM等。</p>
+<h2 id="3-HyDroid-A-Hybrid-Approach-for-Generating-API-Call-Traces-from-ObfuscatedAndroid-Applications-for-Mobile-Security"><a href="#3-HyDroid-A-Hybrid-Approach-for-Generating-API-Call-Traces-from-ObfuscatedAndroid-Applications-for-Mobile-Security" class="headerlink" title="3  HyDroid: A Hybrid Approach for Generating API Call Traces from ObfuscatedAndroid Applications for Mobile Security"></a>3  HyDroid: A Hybrid Approach for Generating API Call Traces from ObfuscatedAndroid Applications for Mobile Security</h2><ul>
+<li>引用：<strong>Khanmohammadi K, Hamou-Lhadj A. HyDroid: A Hybrid Approach for Generating API Call Traces from Obfuscated Android Applications for Mobile Security[C]// IEEE International Conference on Software Quality, Reliability and Security. IEEE, 2017:168-175.</strong></li>
+</ul>
+<p>在本文中，他给出了一种混合方法HyDroid，它结合了静态和动态分析，从应用程序服务组件的执行中生成API调用跟踪。</p>
+<p>使用<strong>Jimple grammar</strong>将二进制文件转换为更高级别的表示。</p>
+<p>系统框架：</p>
+<p><img src="/2018/09/30/PaperRead2/3.png" alt="1537517086"></p>
+<p>这个方法的检测过程分为两部分：</p>
+<ol>
+<li><p>静态分析部分：</p>
+<p>这一部分是通过改变我们通过遍历服务的方法和修改if语句条件来实现程序按照所需的路径运行代码。整个条件由布尔变量替换。其次，赋值语句在if语句体内完成。最后，添加了异常处理。</p>
+</li>
+</ol>
+<p>这一部分是通过将反编译的二进制文件准换为Jimple语句，然后通过Jimple语法来实现if条件语句的控制和修改。下面是修改的例子。</p>
+<p><img src="/2018/09/30/PaperRead2/4.png" alt="1537517464"></p>
+<ol>
+<li>动态分析部分：</li>
+</ol>
+<p>SLCS模拟服务的生命周期，以与测试应用程序中的服务进行交互。在执行的过程中把API的调用的过程找出来。保留Android API调用以及可以揭示恶意软件行为的Java库调用。</p>
+<p>缺点：</p>
+<ol>
+<li>Encrvption是另一种强大的混淆技术，可用于代码的不同点，包括字符串加密，整个类的加密或应用程序资源的加密。如前所述，当字符串加密和反射可以一起使用时，我们的方法可以很好地打败字符串加密。如果整个类都是加密的，那么无法解密类的检测是不可能的。即使对于HyDroid来说，这种类型的混淆仍然是一个挑战。</li>
+<li>加入噪声代码的话会使得这种方法生成不必要的代码来实现API轨迹的调用，这样的话就增加了不必要的负担。</li>
+</ol>
+<h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>数据集来自Gnome。</p>
+<p>其实这篇文章之研究了服务组件的API，但是有可能恶意代码不插入在服务组件中。</p>
+<h2 id="4-SAMADroid-A-Novel-3-Level-Hybrid-MalwareDetection-Model-for-Android-Operating-System"><a href="#4-SAMADroid-A-Novel-3-Level-Hybrid-MalwareDetection-Model-for-Android-Operating-System" class="headerlink" title="4  SAMADroid: A Novel 3-Level Hybrid MalwareDetection Model for Android Operating System"></a>4  SAMADroid: A Novel 3-Level Hybrid MalwareDetection Model for Android Operating System</h2><ul>
+<li>引用：<strong>Arshad S, Shah M A, Wahid A, et al. SAMADroid: A Novel 3-Level Hybrid Malware Detection Model for Android Operating System[J]. IEEE Access, 2018, PP(99):1-1.</strong></li>
+</ul>
+<h3 id="4-1-概述"><a href="#4-1-概述" class="headerlink" title="4.1 概述"></a>4.1 概述</h3><p>这篇文章说给出了新的三层混合Android恶意软件检测模型，命名为SAMADroid。它是恶意软件分析和检测的三个级别之间的混合：(1)静态和动态分析;(2) 本地和远程主机;(3)机器学习情报</p>
+<p>先给出来一篇论文中使用的<strong>AASandbox</strong>来进行的静态和动态相结合的恶意软件分析;然后又介绍了另一个方法<strong>DroidRanger</strong>：分两步：（1）它使用恶意软件执行预期功能所需的基本权限来过滤恶意应用程序（我觉得没啥用，因为权限的话有一些正常的软件也会有一些过分的权限需要）；（2）记录API调用及其参数，以便检测动态加载的Java代码的恶意行为。</p>
+<p>接下来还有些别的文献的方法，基本上分为两种吧：</p>
+<ol>
+<li>基于机器学习的恶意软件检测，有各种各样的特征提取方法，包括静态分析或者是动态分析提取的特征，然后进行分类。</li>
+<li>基于本机和主机的分析：其实就是现在本机通过一定的方法进行本机的检测，然后将认定为有风险的APP通过收集APP的应用信息传到主机上进行分析或者是直接将APK传到服务器上进行详细的分析。</li>
+</ol>
+<h3 id="4-2-本文的框架"><a href="#4-2-本文的框架" class="headerlink" title="4.2 本文的框架"></a>4.2 本文的框架</h3><p>本文中的方法是一个3层的检测模型</p>
+<ol>
+<li>静态和动态结合分析</li>
+</ol>
+<p>分析的静态的功能：API，权限，组件，请求的硬件，意图过滤器（使用到的工具是Android Asset Packaging Tool和Baksmali）</p>
+<p>动态调用:安装应用并对系统调用跟踪进行分析（具体的是分析啥？这里没说，看看下面）</p>
+<p>这一级的模型是他开发了一个安卓的客户端，然后对和网络还有文件操作相关的系统调用进行了跟踪。</p>
+<ol>
+<li><p>本机和主机分析：这里的本机和主机分析其实是在本机上不执行检测，只执行安装然后跟踪系统调用日志然后上传到服务器进行仔细的静态分析过程。</p>
+<p>主机分析的过程其实就是根据客户端传来的应用程序的标识符来在本地库中选取APK或者是从应用商店下载来执行静态分析</p>
+</li>
+<li><p>机器学习分析：在服务器上进行分析（特征向量的构建来自于上面收集的静态数据）。</p>
+</li>
+</ol>
+<p>静态的特征用一个集合表示包括6个子特征集合（如API，硬件，组件这一些），每个维度用0或者1表示，动态的特征就是应用的系统调用频率包括系统文件和网络功能的调用（一共10个特征）（文章里说恶意应用的系统调用频率更高（？？？））。然后使用SVM进行分类。而且他是静态分析得出一个结果，然后动态分析得出一个结果，两个结果相互印证。</p>
+<p>评价指标就是用真阳性率，误报率和准确度来评价。</p>
+<h3 id="4-3-工具"><a href="#4-3-工具" class="headerlink" title="4.3  工具"></a>4.3  工具</h3><ol>
+<li><strong>Drebin</strong>：Drebin是一个静态分析恶意软件检测框架，可以提取应用程序行为的最大和有用信息的特征。</li>
+<li><strong>Monkey</strong>:用于动态的随机模拟用户操作应用程序的过程，用于动态过程</li>
+<li><strong>AASandbox</strong>：放置在内核中运行程序通过使用劫持系统来获取程序的运行日志然后构成分析的向量。</li>
+<li><strong>Cuckoo</strong>恶意软件分析器用于通过执行应用程序进行动态特征提取</li>
+<li>LIBSVM：A Library for Support Vector Machines：获取地址：<a href="http://www.csie.ntu.edu.tw/~cjlin/libsvm/" target="_blank" rel="noopener">http://www.csie.ntu.edu.tw/~cjlin/libsvm/</a></li>
+<li>……等等</li>
+</ol>
+<h2 id="5-Detection-of-repackaged-Android-applications-based-on-Apps-Permissions"><a href="#5-Detection-of-repackaged-Android-applications-based-on-Apps-Permissions" class="headerlink" title="5 Detection of repackaged Android applications based on Apps Permissions"></a>5 Detection of repackaged Android applications based on Apps Permissions</h2><ul>
+<li>引用：<strong>Nisha, O. S. Jannath, and S. M. S. Bhanu. “Detection of repackaged Android applications based on Apps Permissions.” <em>International Conference on Recent Advances in Information Technology</em> 2018:1-8.</strong></li>
+</ul>
+<h3 id="5-1-基本概念"><a href="#5-1-基本概念" class="headerlink" title="5.1  基本概念"></a>5.1  基本概念</h3><ol>
+<li>每个Android应用程序由四个组件组成：</li>
+</ol>
+<ul>
+<li>活动：单个屏幕侧重于用户操作。</li>
+<li>服务：为应用程序执行后台服务。</li>
+<li>广播接收器：从操作系统和应用程序中侦听消息。</li>
+<li>内容提供商：定义数据库存储。</li>
+</ul>
+<p>这些组件可以使用Intent消息在彼此之间进行通信。这些组件在“AndroidMani-fest.xml”文件中声明，该文件描述了每个组件的生命周期以及它们如何通信。</p>
+<ol>
+<li>安卓的安全机制：沙箱和权限（开发人员必须要显式的声明）</li>
+</ol>
+<h2 id="5-2-本文的研究内容"><a href="#5-2-本文的研究内容" class="headerlink" title="5.2 本文的研究内容"></a>5.2 本文的研究内容</h2><p>这篇文章其实也是用机器学习的方法来检测恶意程序的，在选择特征的时候他使用了一些特征的选择方法如卡方检验（基于统计的一种方法），MI(相互信息)来选择特定的特征，对于特征加权的时候使用术语频率法和特征排序法。术语频率方法估计文件中术语的频率，仅适用于中英文信息检索。特征排序方法基于统计和信息理论来度量特征和类变量的相关性。提取完特征之后使用分类算法来对恶意和良性应用进行分类。</p>
+<p>架构如下：</p>
+<p><img src="/2018/09/30/PaperRead2/5.png" alt="1537930591"></p>
+<p>最后就是对几种不同的分类算法得到的结果进行了比较。</p>
+<h2 id="代码混淆工具"><a href="#代码混淆工具" class="headerlink" title="代码混淆工具"></a>代码混淆工具</h2><ol>
+<li>SandMarks </li>
+<li>Zelix KlassMaster</li>
+</ol>
+<h2 id="方法和API调用轨迹生成工具"><a href="#方法和API调用轨迹生成工具" class="headerlink" title="方法和API调用轨迹生成工具"></a>方法和API调用轨迹生成工具</h2><ol>
+<li>soot-infoflow-android</li>
+<li>APIMonitor</li>
+</ol>
+<h2 id="静态分析工具"><a href="#静态分析工具" class="headerlink" title="静态分析工具"></a>静态分析工具</h2><ol>
+<li>Androguard</li>
+</ol>
+<h2 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h2><ol>
+<li>我给APK文件中的某一些程序加密的时候随机选择这个程序中的某一个文件的hash值作为一部分秘钥。然后这样的话他是可以知道hash值是不假，但是要是全部弄出来的话增加了难度。而且我每个的方法的名字也给他命名的不一样吗，随机用字符串来做命名。从我的某一个字符串库中，或者直接就是去hash值，或者是我随意命名。</li>
+<li>机器学习的分类：就是需要找到大样本集，然后找到合适的特征：API的调用，类目录，方法调用，权限使用等等（可以使用动态和静态方法结合的方式来提取特征，也就是通过找到动态特征向量和静态特征向量来训练模型），然后选择合适的分类器，这里的话就是看自己的选择了。其实动态特征和静态特征的提取工具有很多，可以参考文章4，里面介绍了很多的方法。</li>
+<li>其实现在的检测的主要的方法还是基于相似性的检测，还有一部分是机器学习的检测，动态检测和自我防御。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+	<div>
+		  
+			
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2018/09/30/PaperRead2/">文献阅读20180929</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 WilsonSong 的个人博客">WilsonSong</a></p>
+  <p><span>发布时间:</span>2018年09月30日 - 15:09</p>
+  <p><span>最后更新:</span>2018年10月21日 - 20:10</p>
+  <p><span>原始链接:</span><a href="/2018/09/30/PaperRead2/" title="文献阅读20180929">https://songwell1024.github.io/2018/09/30/PaperRead2/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://songwell1024.github.io/2018/09/30/PaperRead2/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+		  
+	</div>
+	
+    
+
+	  <div>
+	    
+	    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	    
+	  </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/文献阅读/" rel="tag"><i class="fa fa-tag"></i> 文献阅读</a>
+          
+            <a href="/tags/安卓重打包/" rel="tag"><i class="fa fa-tag"></i> 安卓重打包</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/30/PaperRead1/" rel="next" title="文献阅读20180915">
+                <i class="fa fa-chevron-left"></i> 文献阅读20180915
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/03/MMSySQL-Optimization/" rel="prev" title="MySQL性能优化基础">
+                MySQL性能优化基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+		<!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分 享</div>
+<div class="-mob-share-ui"  -mob-share-ui-theme -mob-share-ui-theme-slide-bottom style="display: none">
+<ul class="-mob-share-list">
+  <li class="-mob-share-weixin"><p>微信</p></li>
+  <li class="-mob-share-qzone"><p>QQ空间</p></li>
+  <li class="-mob-share-weibo"><p>新浪微博</p></li>
+  <li class="-mob-share-facebook"><p>Facebook</p></li>
+  <li class="-mob-share-twitter"><p>Twitter</p></li>
+  <li class="-mob-share-pocket"><p>Pocket</p></li>
+  <li class="-mob-share-tumblr"><p>Tumblr</p></li>
+  <li class="-mob-share-google"><p>Google+</p></li>
+  <li class="-mob-share-linkedin"><p>Linkedin</p></li>
+  <li class="-mob-share-qq"><p>QQ好友</p></li>
+  <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+  <li class="-mob-share-renren"><p>人人网</p></li>
+  <li class="-mob-share-douban"><p>豆瓣</p></li>
+  <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+  <li class="-mob-share-instapaper"><p>Instapaper</p></li>
+</ul>
+<div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=27757904d54d4"></script>
+<!--MOB SHARE END-->
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+  
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/headphoto.jpg"
+                alt="WilsonSong" />
+            
+              <p class="site-author-name" itemprop="name">WilsonSong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/songwell1024" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zySong0709@foxmail" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.csdn.net/WilsonSong1024" title="CSDN博客" target="_blank">CSDN博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          <div id="aplayer" class="aplayer"></div>
+<script src="/js/src/APlayer.min.js"></script>
+<script type="text/javascript">
+var ap = new APlayer({
+    element: document.getElementById('aplayer'),                       // Optional, player element
+    narrow: false,                                                     // Optional, narrow style
+    autoplay: false,                                                    // Optional, autoplay song(s), not supported by mobile browsers
+    showlrc: 0,                                                        // Optional, show lrc, can be 0, 1, 2, see: ###With lrc
+    mutex: true,                                                       // Optional, pause other players when this player playing
+    theme: '#e6d0b2',                                                  // Optional, theme color, default: #b7daff
+    mode: 'random',                                                    // Optional, play mode, can be `random` `single` `circulation`(loop) `order`(no loop), default: `circulation`
+    preload: 'metadata',                                               // Optional, the way to load music, can be 'none' 'metadata' 'auto', default: 'auto'
+    listmaxheight: '513px',                                             // Optional, max height of play list
+    music: [{
+      title: '那些你很冒险的梦',
+      author: '林俊杰',
+      url: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2Fdream.mp3',
+      pic: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2F1.webp',
+    },
+	{
+	  title: '修炼爱情',
+      author: '林俊杰',
+      url: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2F%E4%BF%AE%E7%82%BC%E7%88%B1%E6%83%85.mp3',
+      pic: 'https://pythonimage-1257203698.cos.ap-shanghai.myqcloud.com/music%2Ftimg.webp',	
+	}
+	]
+  });
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文献阅读"><span class="nav-number">1.</span> <span class="nav-text">文献阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-A-Framework-for-Evaluating-Mobile-App-Repackaging-Detection-Algorithms"><span class="nav-number">1.1.</span> <span class="nav-text">1  A Framework for Evaluating Mobile App Repackaging Detection Algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-文章中提到的几种方法"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1  文章中提到的几种方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-文章给出的评估框架："><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2  文章给出的评估框架：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-用于自动Android恶意软件检测的深度神经网络"><span class="nav-number">1.2.</span> <span class="nav-text">2  用于自动Android恶意软件检测的深度神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-数据集来源："><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1   数据集来源：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-本文中的方法："><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2  本文中的方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-提到的其他的方法："><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 提到的其他的方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本文架构"><span class="nav-number">1.2.4.</span> <span class="nav-text">本文架构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-HyDroid-A-Hybrid-Approach-for-Generating-API-Call-Traces-from-ObfuscatedAndroid-Applications-for-Mobile-Security"><span class="nav-number">1.3.</span> <span class="nav-text">3  HyDroid: A Hybrid Approach for Generating API Call Traces from ObfuscatedAndroid Applications for Mobile Security</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据集"><span class="nav-number">1.3.1.</span> <span class="nav-text">数据集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-SAMADroid-A-Novel-3-Level-Hybrid-MalwareDetection-Model-for-Android-Operating-System"><span class="nav-number">1.4.</span> <span class="nav-text">4  SAMADroid: A Novel 3-Level Hybrid MalwareDetection Model for Android Operating System</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-概述"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-本文的框架"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 本文的框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-工具"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3  工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Detection-of-repackaged-Android-applications-based-on-Apps-Permissions"><span class="nav-number">1.5.</span> <span class="nav-text">5 Detection of repackaged Android applications based on Apps Permissions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-基本概念"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1  基本概念</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-本文的研究内容"><span class="nav-number">1.6.</span> <span class="nav-text">5.2 本文的研究内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码混淆工具"><span class="nav-number">1.7.</span> <span class="nav-text">代码混淆工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法和API调用轨迹生成工具"><span class="nav-number">1.8.</span> <span class="nav-text">方法和API调用轨迹生成工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态分析工具"><span class="nav-number">1.9.</span> <span class="nav-text">静态分析工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#想法"><span class="nav-number">1.10.</span> <span class="nav-text">想法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WilsonSong</span>
+
+  
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共138.9k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'vmma2AyaJ0StcuxLmOdmPBMu-gzGzoHsz',
+        appKey: 'VfsPFNQTt5IgX8yrvzFmn3S9',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'/images/headphoto.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+<!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":75,"height":150,"horizontalOffset":12,"verticalOffset":-40},"mobile":{"show":true},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>
