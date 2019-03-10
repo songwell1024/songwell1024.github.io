@@ -91,7 +91,7 @@
 <meta name="description" content="1. 简介在Spring Cloud微服务系统中，一种常见的负载均衡方式是，客户端的请求首先经过负载均衡（zuul、Ngnix），再到达服务网关（zuul集群），然后再到具体的服务，服务统一注册到高可用的服务注册中心集群，服务的所有的配置文件由配置服务管理，配置服务的配置文件放在git仓库，方便开发人员随时改配置。">
 <meta name="keywords" content="SpringCloud">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringCloudZuul">
+<meta property="og:title" content="SpringCloud服务网关Zuul">
 <meta property="og:url" content="https://songwell1024.github.io/2019/01/21/SpringCloudZuul/index.html">
 <meta property="og:site_name" content="记路心晴">
 <meta property="og:description" content="1. 简介在Spring Cloud微服务系统中，一种常见的负载均衡方式是，客户端的请求首先经过负载均衡（zuul、Ngnix），再到达服务网关（zuul集群），然后再到具体的服务，服务统一注册到高可用的服务注册中心集群，服务的所有的配置文件由配置服务管理，配置服务的配置文件放在git仓库，方便开发人员随时改配置。">
@@ -100,9 +100,9 @@
 <meta property="og:image" content="https://songwell1024.github.io/2019/01/21/SpringCloudZuul/2.png">
 <meta property="og:image" content="https://songwell1024.github.io/2019/01/21/SpringCloudZuul/3.png">
 <meta property="og:image" content="https://songwell1024.github.io/2019/01/21/SpringCloudZuul/4.png">
-<meta property="og:updated_time" content="2019-03-09T13:55:01.315Z">
+<meta property="og:updated_time" content="2019-03-10T14:15:39.137Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SpringCloudZuul">
+<meta name="twitter:title" content="SpringCloud服务网关Zuul">
 <meta name="twitter:description" content="1. 简介在Spring Cloud微服务系统中，一种常见的负载均衡方式是，客户端的请求首先经过负载均衡（zuul、Ngnix），再到达服务网关（zuul集群），然后再到具体的服务，服务统一注册到高可用的服务注册中心集群，服务的所有的配置文件由配置服务管理，配置服务的配置文件放在git仓库，方便开发人员随时改配置。">
 <meta name="twitter:image" content="https://songwell1024.github.io/2019/01/21/SpringCloudZuul/1.png">
 
@@ -140,7 +140,7 @@
 
 
 
-  <title>SpringCloudZuul | 记路心晴</title>
+  <title>SpringCloud服务网关Zuul | 记路心晴</title>
   
 
 
@@ -338,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SpringCloudZuul</h1>
+          <h1 class="post-title" itemprop="name headline">SpringCloud服务网关Zuul</h1>
         
 
         <div class="post-meta">
@@ -516,11 +516,11 @@
   <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
   <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
-  <p><span>本文标题:</span><a href="/2019/01/21/SpringCloudZuul/">SpringCloudZuul</a></p>
+  <p><span>本文标题:</span><a href="/2019/01/21/SpringCloudZuul/">SpringCloud服务网关Zuul</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 WilsonSong 的个人博客">WilsonSong</a></p>
   <p><span>发布时间:</span>2019年01月21日 - 21:01</p>
-  <p><span>最后更新:</span>2019年03月09日 - 21:03</p>
-  <p><span>原始链接:</span><a href="/2019/01/21/SpringCloudZuul/" title="SpringCloudZuul">https://songwell1024.github.io/2019/01/21/SpringCloudZuul/</a>
+  <p><span>最后更新:</span>2019年03月10日 - 22:03</p>
+  <p><span>原始链接:</span><a href="/2019/01/21/SpringCloudZuul/" title="SpringCloud服务网关Zuul">https://songwell1024.github.io/2019/01/21/SpringCloudZuul/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://songwell1024.github.io/2019/01/21/SpringCloudZuul/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
@@ -1379,6 +1379,6 @@ var ap = new APlayer({
 <script type="text/javascript" src="/js/src/love.js"></script>
 <!-- 代码块复制功能 -->
   <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
-  <script type="text/javascript" src="/js/src/clipboard-use.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":75,"height":150,"horizontalOffset":12,"verticalOffset":-40},"mobile":{"show":true},"log":false});</script></body>
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-koharu"},"display":{"position":"right","width":75,"height":150,"horizontalOffset":12,"verticalOffset":-40},"mobile":{"show":true},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
